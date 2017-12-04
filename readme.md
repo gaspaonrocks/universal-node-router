@@ -2,7 +2,10 @@
 
 ## SET UP
 
-first install it with npm install -S universal-node-router
+first install it with 
+```javascript
+npm install -S universal-node-router
+```
 
 then when configuring your server with node and express:
 
