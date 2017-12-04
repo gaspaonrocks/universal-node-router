@@ -18,14 +18,14 @@ For example, /api/books will call the controller books.js.
 
 The methods should have clear names :
 
-    typeOfRequest | nameOfMethod
-    --- | ---
-    GET(Collection) | list
-    GET(One) | find
-    POST | create
-    PUT | update 
-    PATCH | (same method as above)
-    DELETE | delete
+typeOfRequest | nameOfMethod
+--- | ---
+GET(Collection) | list
+GET(One) | find
+POST | create
+PUT | update 
+PATCH | (same method as above)
+DELETE | delete
 
 The choice of DataBase should not impact the router, since the logic is written
 in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
