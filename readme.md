@@ -17,6 +17,7 @@ to configuring your server. The url should match the name of your controller.
 For example, /api/books will call the controller books.js.
 
 The methods should have clear names :
+
     typeOfRequest | nameOfMethod
     --- | ---
     GET(Collection) | list
