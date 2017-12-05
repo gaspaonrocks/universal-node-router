@@ -4,15 +4,23 @@ module.exports = function (dirName) {
   const express = require('express');
   const router = express.Router();
 
+  // indecCtrlListing will look in the directory given
+  // and list all the controller files to use 
   let indexCtrlListing = require('../controller-manager/index');
   let indexCtrl = indexCtrlListing(dirName);
 
+  // utils will help us build options to redirect the request
+  // to either getCollection or getOne and keep the params
+  let utils = require('../utils/utils');
+
   const RoutesMapping = {
     'GET': function (router, path) {
-      let ctrl = path.replace('/', '');
-      router.get(path, (req, res, next) => {
-        return indexCtrl[ctrl].list(req, res, next);
-      })
+      let options = utils.options(path);
+      let ctrl = options.ctrl;
+
+      utils.hasReqParams(path) ?
+        router.get(options.url, (req, res, next) => { return indexCtrl[ctrl].find(req, res, next); }) :
+        router.get(path, (req, res, next) => { return indexCtrl[ctrl].list(req, res, next); });
     },
     'POST': function (router, path) {
       let ctrl = path.replace('/', '');
@@ -39,8 +47,6 @@ module.exports = function (dirName) {
       })
     }
   }
-
-  //console.log(RoutesMapping);
 
   router.all('*', (req, res, next) => {
     RoutesMapping[req.method](router, req.path);
