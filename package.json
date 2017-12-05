@@ -1,0 +1,28 @@
+{
+  "name": "universal-node-router",
+  "version": "0.1.0",
+  "description": "a simple router that matches requests to corresponding backend controllers",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "keywords": [
+    "node",
+    "router",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gaspaonrocks/universal-node-router.git"
+  },
+  "engines": {
+    "node": "8.x",
+    "npm": "5.x"
+  },
+  "author": "gaspaonrocks",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "fs": "0.0.1-security"
+  }
+}
