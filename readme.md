@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gaspaonrocks/universal-node-router.svg?branch=master)](https://travis-ci.org/gaspaonrocks/universal-node-router) [![NPM](https://nodei.co/npm/universal-node-router.png?downloads=true&stars=true)](https://nodei.co/npm/universal-node-router/) [![Coverage Status](https://coveralls.io/repos/github/gaspaonrocks/universal-node-router/badge.svg?branch=master)](https://coveralls.io/github/gaspaonrocks/universal-node-router?branch=master)
+[![Build Status](https://travis-ci.org/gaspaonrocks/universal-node-router.svg?branch=master)](https://travis-ci.org/gaspaonrocks/universal-node-router) [![NPM](https://nodei.co/npm/universal-node-router.png?downloads=true&stars=true)](https://www.npmjs.com/package/universal-node-router) [![Coverage Status](https://coveralls.io/repos/github/gaspaonrocks/universal-node-router/badge.svg?branch=master)](https://coveralls.io/github/gaspaonrocks/universal-node-router?branch=master) [![GitHub version](https://badge.fury.io/gh/gaspaonrocks%2Funiversal-node-router.svg)](https://badge.fury.io/gh/gaspaonrocks%2Funiversal-node-router)
 ===========
 
 ## SET UP
@@ -31,7 +31,7 @@ req.params = {
 ```
 
 Beware that controllers should be exported as modules, classes, functions, anything that is accessible.
- 
+
 The methods should have clear names :
 
 typeOfRequest | nameOfMethod
