@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-    mapper: require('./route-mapper/map'),
-    indexer: require('./controller-manager/index')
+    mapper: require('./src/route-mapper/map'),
+    indexer: require('./src/controller-manager/index')
 };

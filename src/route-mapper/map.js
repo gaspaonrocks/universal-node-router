@@ -29,20 +29,26 @@ module.exports = function (dirName) {
       })
     },
     'PUT': function (router, path) {
-      let ctrl = path.replace('/', '');
-      router.put(path, (req, res, next) => {
+      let options = utils.options(path);
+      let ctrl = options.ctrl;
+
+      router.put(options.url, (req, res, next) => {
         return indexCtrl[ctrl].update(req, res, next);
       })
     },
     'PATCH': function (router, path) {
-      let ctrl = path.replace('/', '');
-      router.patch(path, (req, res, next) => {
+      let options = utils.options(path);
+      let ctrl = options.ctrl;
+
+      router.patch(options.url, (req, res, next) => {
         return indexCtrl[ctrl].update(req, res, next);
       })
     },
     'DELETE': function (router, path) {
-      let ctrl = path.replace('/', '');
-      router.delete(path, (req, res, next) => {
+      let options = utils.options(path);
+      let ctrl = options.ctrl;
+
+      router.delete(options.url, (req, res, next) => {
         return indexCtrl[ctrl].delete(req, res, next);
       })
     }

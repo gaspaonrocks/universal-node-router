@@ -8,7 +8,7 @@ module.exports = function ctrlListing(dirName) {
   fs.readdirSync(dirName)
     .forEach(e => {
       let name = e.replace('.js', '');
-      let ctrl = require('../.' + dirName + '/' + e);
+      let ctrl = require('../../.' + dirName + '/' + e);
 
       indexCtrl[name] = ctrl;
     })
