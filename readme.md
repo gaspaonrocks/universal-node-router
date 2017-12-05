@@ -1,4 +1,4 @@
-Universal Node Router
+Universal Node Router [![Build Status](https://travis-ci.org/gaspaonrocks/universal-node-router.svg?branch=master)](https://travis-ci.org/gaspaonrocks/universal-node-router) [![Coverage Status](https://coveralls.io/repos/github/gaspaonrocks/universal-node-router/badge.svg?branch=master)](https://coveralls.io/github/gaspaonrocks/universal-node-router?branch=master)
 ===========
 
 ## SET UP
