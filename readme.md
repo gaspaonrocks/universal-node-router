@@ -51,8 +51,8 @@ in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
 
 ## In Development : 
  - [X] A better management of the context for the require
+ - [X] A better handling of request (GetCollection vs GetOne)
+ - [X] Improve ctrlIndexer to GlobalModulesIndexer - Recursive checks added
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code
- - [X] A better handling of request (GetCollection vs GetOne)
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
- - [ ] Improve ctrlIndexer to GlobalModulesIndexer
