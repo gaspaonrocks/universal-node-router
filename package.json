@@ -12,10 +12,7 @@
     "router",
     "express"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:gaspaonrocks/universal-node-router.git"
-  },
+  "repository": {},
   "engines": {
     "node": "8.x",
     "npm": "5.x"
