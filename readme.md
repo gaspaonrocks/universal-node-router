@@ -49,7 +49,7 @@ DELETE | delete
 The choice of DataBase should not impact the router, since the logic is written
 in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
 
-IN DEVELOPMENT : 
+## In Development : 
  - [X] A better management of the context for the require
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code

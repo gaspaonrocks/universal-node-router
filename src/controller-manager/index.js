@@ -9,7 +9,7 @@ module.exports = function ctrlListing(context, dirName) {
 
   let indexCtrl = {};
 
-  fs.readdirSync(dirName)
+  fs.readdirSync(absolutePath)
     .forEach(e => {
       let name = e.replace('.js', '');
       let ctrl = require(absolutePath + '/' + e);

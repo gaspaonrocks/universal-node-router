@@ -14,7 +14,7 @@ describe('CtrlIndexer', function () {
     assert.equal(typeof indexer, 'function');
   });
 
-  it('should read files in dir', function () {
+  xit('should read files in dir', function () {
     before(function () {
       mock({
         '/mockCtrl': {
