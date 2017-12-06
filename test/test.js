@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var assert = require('assert');
-var mapper = require('../route-mapper/map');
+var mapper = require('../src/route-mapper/map');
 
 describe('RouteMapper', function () {
   it('should be a function', function () {
