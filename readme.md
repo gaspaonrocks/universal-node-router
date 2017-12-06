@@ -11,8 +11,10 @@ npm install -S universal-node-router
 then when configuring your server with node and express:
 
 ```javascript
-// import and assign the route mapper
-let router = require('universal-node-router');
+// import and assign the Route Object Constructor
+let Router = require('universal-node-router');
+// create new Object Router with context as parameter
+let router = new Router(__dirname);
 // tell Express to use it as target for your endpoints
 app.use('/api', router.mapper('path/to/controllers/directory'));
 ```
