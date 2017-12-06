@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function (dirName) {
+module.exports = function (context, dirName) {
   const express = require('express');
   const router = express.Router();
 
   // indecCtrlListing will look in the directory given
   // and list all the controller files to use 
   let indexCtrlListing = require('../controller-manager/index');
-  let indexCtrl = indexCtrlListing(dirName);
+  let indexCtrl = indexCtrlListing(context, dirName);
 
   // utils will help us build options to redirect the request
   // to either getCollection or getOne and keep the params

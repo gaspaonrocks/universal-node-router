@@ -1,6 +1,6 @@
 {
   "name": "universal-node-router",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "description": "a simple router that matches requests to corresponding backend controllers",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "mock-fs": "^4.4.2"
   }
 }
