@@ -21,6 +21,7 @@ It should be used to make it easier to go from writing your client
 to configuring your server. The url should match the name of your controller.
 
 For example, /api/books will call the controller books.js.
+
 Another case, /api/books/you/are/badass will call the controller books.js with : 
 ```javascript
 req.params = {
@@ -47,6 +48,7 @@ The choice of DataBase should not impact the router, since the logic is written
 in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
 
 IN DEVELOPMENT : 
+ - [X] A better management of the context for the require
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code
  - [X] A better handling of request (GetCollection vs GetOne)
