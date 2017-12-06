@@ -5,11 +5,11 @@ var should = require('chai').should;
 var assert = require('assert');
 var mock = require('mock-fs');
 
-var indexer = require('../src/controller-manager/index');
+var indexer = require('../src/global-modules-indexer/index');
 
 
 
-describe('CtrlIndexer', function () {
+describe('ModulesIndexer', function () {
   it('should be a function', function () {
     assert.equal(typeof indexer, 'function');
   });
@@ -33,16 +33,4 @@ describe('CtrlIndexer', function () {
 
     test.should.be.a('Object');
   });
-
-  /* it('should be a function', function () {
-    assert.equal(typeof indexer, 'function');
-  });
-
-  it('should be a function', function () {
-    assert.equal(typeof indexer, 'function');
-  });
-
-  it('should be a function', function () {
-    assert.equal(typeof indexer, 'function');
-  }); */
 });
