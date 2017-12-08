@@ -6,8 +6,8 @@ module.exports = function (context, dirName) {
 
   // indecCtrlListing will look in the directory given
   // and list all the controller files to use 
-  let indexCtrlListing = require('../global-modules-indexer/index');
-  let indexCtrl = indexCtrlListing(context, dirName);
+  let modulesIndexer = require('../global-modules-indexer/index');
+  let modulesIndex = modulesIndexer(context, dirName);
 
   // utils will help us build options to redirect the request
   // to either getCollection or getOne and keep the params
@@ -19,13 +19,14 @@ module.exports = function (context, dirName) {
       let ctrl = options.ctrl;
 
       utils.hasReqParams(path) ?
-        router.get(options.url, (req, res, next) => { return indexCtrl[ctrl].find(req, res, next); }) :
-        router.get(path, (req, res, next) => { return indexCtrl[ctrl].list(req, res, next); });
+        router.get(options.url, (req, res, next) => { return modulesIndex[ctrl].find(req, res, next); }) :
+        router.get(path, (req, res, next) => { return modulesIndex[ctrl].list(req, res, next); });
     },
     'POST': function (router, path) {
       let ctrl = path.replace('/', '');
+      
       router.post(path, (req, res, next) => {
-        return indexCtrl[ctrl].create(req, res, next);
+        return modulesIndex[ctrl].create(req, res, next);
       })
     },
     'PUT': function (router, path) {
@@ -33,7 +34,7 @@ module.exports = function (context, dirName) {
       let ctrl = options.ctrl;
 
       router.put(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].update(req, res, next);
+        return modulesIndex[ctrl].update(req, res, next);
       })
     },
     'PATCH': function (router, path) {
@@ -41,7 +42,7 @@ module.exports = function (context, dirName) {
       let ctrl = options.ctrl;
 
       router.patch(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].update(req, res, next);
+        return modulesIndex[ctrl].update(req, res, next);
       })
     },
     'DELETE': function (router, path) {
@@ -49,7 +50,7 @@ module.exports = function (context, dirName) {
       let ctrl = options.ctrl;
 
       router.delete(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].delete(req, res, next);
+        return modulesIndex[ctrl].delete(req, res, next);
       })
     }
   }
