@@ -6,7 +6,7 @@ module.exports = function (context, dirName) {
 
   // indecCtrlListing will look in the directory given
   // and list all the controller files to use 
-  let indexCtrlListing = require('../controller-manager/index');
+  let indexCtrlListing = require('../global-modules-indexer/index');
   let indexCtrl = indexCtrlListing(context, dirName);
 
   // utils will help us build options to redirect the request

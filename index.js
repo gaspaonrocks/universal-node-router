@@ -2,7 +2,7 @@
 
 // import both function
 let mapper = require('./src/route-mapper/map');
-let indexer = require('./src/controller-manager/index');
+let indexer = require('./src/global-modules-indexer/index');
 
 // this will keep the context of our server as intern variable
 function Router(context) {
