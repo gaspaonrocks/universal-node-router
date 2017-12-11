@@ -9,6 +9,7 @@ module.exports = {
       ctrl: '',
       url: '/'
     };
+    
     let array = path.split('/').filter(e => e.length > 0);
     object.ctrl = array[0];
     object.url += array[0];

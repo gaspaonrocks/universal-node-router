@@ -4,7 +4,7 @@ module.exports = function (context, dirName) {
   const express = require('express');
   const router = express.Router();
 
-  // indecCtrlListing will look in the directory given
+  // modulesIndexer will look in the directory given
   // and list all the controller files to use 
   let modulesIndexer = require('../global-modules-indexer/index');
   let modulesIndex = modulesIndexer(context, dirName);
