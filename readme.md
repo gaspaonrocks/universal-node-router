@@ -49,10 +49,15 @@ DELETE | delete
 The choice of DataBase should not impact the router, since the logic is written
 in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
 
+## Contributing
+If you want to help with anything, unit tests, methods... Submit a pull request and we'll discuss ;-)
+
+You can also post issues if I ever miss something.
+
 ## In Development : 
  - [X] A better management of the context for the require
  - [X] A better handling of request (GetCollection vs GetOne)
- - [X] Improve ctrlIndexer to GlobalModulesIndexer - Recursive checks added
+ - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
