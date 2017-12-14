@@ -23,6 +23,8 @@
   "author": "gaspaonrocks",
   "license": "ISC",
   "dependencies": {
+    "@types/express": "^4.0.39",
+    "@types/node": "^8.0.58",
     "express": "^4.16.2",
     "fs": "0.0.1-security"
   },
