@@ -11,41 +11,51 @@ function default_1(context, dirName) {
         'GET': function (router, path) {
             var options = utils.options(path);
             var ctrl = options.ctrl;
-            utils.hasReqParams(path) ?
-                router.get(options.url, function (req, res, next) { return modulesIndex[ctrl].find(req, res, next); }) :
-                router.get(path, function (req, res, next) { return modulesIndex[ctrl].list(req, res, next); });
+            if (modulesIndex[ctrl] != null) {
+                utils.hasReqParams(path) ?
+                    router.get(options.url, function (req, res, next) { return modulesIndex[ctrl].find(req, res, next); }) :
+                    router.get(path, function (req, res, next) { return modulesIndex[ctrl].list(req, res, next); });
+            }
         },
         'POST': function (router, path) {
             var ctrl = path.replace('/', '');
-            router.post(path, function (req, res, next) {
-                return modulesIndex[ctrl].create(req, res, next);
-            });
+            if (modulesIndex[ctrl] != null) {
+                router.post(path, function (req, res, next) {
+                    return modulesIndex[ctrl].create(req, res, next);
+                });
+            }
         },
         'PUT': function (router, path) {
             var options = utils.options(path);
             var ctrl = options.ctrl;
-            router.put(options.url, function (req, res, next) {
-                return modulesIndex[ctrl].update(req, res, next);
-            });
+            if (modulesIndex[ctrl] != null) {
+                router.put(options.url, function (req, res, next) {
+                    return modulesIndex[ctrl].update(req, res, next);
+                });
+            }
         },
         'PATCH': function (router, path) {
             var options = utils.options(path);
             var ctrl = options.ctrl;
-            router.patch(options.url, function (req, res, next) {
-                return modulesIndex[ctrl].update(req, res, next);
-            });
+            if (modulesIndex[ctrl] != null) {
+                router.patch(options.url, function (req, res, next) {
+                    return modulesIndex[ctrl].update(req, res, next);
+                });
+            }
         },
         'DELETE': function (router, path) {
             var options = utils.options(path);
             var ctrl = options.ctrl;
-            router.delete(options.url, function (req, res, next) {
-                return modulesIndex[ctrl].delete(req, res, next);
-            });
+            if (modulesIndex[ctrl] != null) {
+                router.delete(options.url, function (req, res, next) {
+                    return modulesIndex[ctrl].delete(req, res, next);
+                });
+            }
         }
     };
     router.all('*', function (req, res, next) {
         if (typeof RoutesMapping[req.method] !== 'function') {
-            res.status(500).json("request not handled, it must be one of GET, POST, PUT, PATCH or DELETE.");
+            res.status(500).json("Request not handled, it must be one of GET, POST, PUT, PATCH or DELETE.");
         }
         else {
             RoutesMapping[req.method](router, req.path);

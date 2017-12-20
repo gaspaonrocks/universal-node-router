@@ -18,39 +18,50 @@ module.exports = function (context, dirName) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      utils.hasReqParams(path) ?
-        router.get(options.url, (req, res, next) => { return indexCtrl[ctrl].find(req, res, next); }) :
-        router.get(path, (req, res, next) => { return indexCtrl[ctrl].list(req, res, next); });
+      if (indexCtrl[ctrl] != null) {
+        utils.hasReqParams(path) ?
+          router.get(options.url, (req, res, next) => { return indexCtrl[ctrl].find(req, res, next); }) :
+          router.get(path, (req, res, next) => { return indexCtrl[ctrl].list(req, res, next); });
+      }
     },
     'POST': function (router, path) {
       let ctrl = path.replace('/', '');
-      router.post(path, (req, res, next) => {
-        return indexCtrl[ctrl].create(req, res, next);
-      })
+
+      if (indexCtrl[ctrl] != null) {
+        router.post(path, (req, res, next) => {
+          return indexCtrl[ctrl].create(req, res, next);
+        })
+      }
     },
     'PUT': function (router, path) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      router.put(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].update(req, res, next);
-      })
+      if (indexCtrl[ctrl] != null) {
+        router.put(options.url, (req, res, next) => {
+          return indexCtrl[ctrl].update(req, res, next);
+        })
+      }
     },
     'PATCH': function (router, path) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      router.patch(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].update(req, res, next);
-      })
+      if (indexCtrl[ctrl] != null) {
+        router.patch(options.url, (req, res, next) => {
+          return indexCtrl[ctrl].update(req, res, next);
+        })
+      }
     },
     'DELETE': function (router, path) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      router.delete(options.url, (req, res, next) => {
-        return indexCtrl[ctrl].delete(req, res, next);
-      })
+      if (indexCtrl[ctrl] != null) {
+        router.delete(options.url, (req, res, next) => {
+          return indexCtrl[ctrl].delete(req, res, next);
+        })
+      }
     }
   }
 
