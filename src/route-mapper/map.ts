@@ -9,7 +9,7 @@ export default function (context: string, dirName: string): Router {
     let utils = Utils;
 
     const RoutesMapping = {
-        'GET': function (router: Router, path: string) {
+        'GET': (router: Router, path: string): void => {
             let options = utils.options(path);
             let ctrl = options.ctrl;
 
@@ -17,13 +17,13 @@ export default function (context: string, dirName: string): Router {
                 router.get(options.url, (req, res, next) => { return modulesIndex[ctrl].find(req, res, next); }) :
                 router.get(path, (req, res, next) => { return modulesIndex[ctrl].list(req, res, next); });
         },
-        'POST': function (router, path) {
+        'POST': (router: Router, path: string): void => {
             let ctrl = path.replace('/', '');
             router.post(path, (req, res, next) => {
                 return modulesIndex[ctrl].create(req, res, next);
             })
         },
-        'PUT': function (router, path) {
+        'PUT': (router: Router, path: string): void => {
             let options = utils.options(path);
             let ctrl = options.ctrl;
 
@@ -31,7 +31,7 @@ export default function (context: string, dirName: string): Router {
                 return modulesIndex[ctrl].update(req, res, next);
             })
         },
-        'PATCH': function (router, path) {
+        'PATCH': (router: Router, path: string): void => {
             let options = utils.options(path);
             let ctrl = options.ctrl;
 
@@ -39,7 +39,7 @@ export default function (context: string, dirName: string): Router {
                 return modulesIndex[ctrl].update(req, res, next);
             })
         },
-        'DELETE': function (router, path) {
+        'DELETE': (router: Router, path: string): void => {
             let options = utils.options(path);
             let ctrl = options.ctrl;
 
@@ -50,8 +50,12 @@ export default function (context: string, dirName: string): Router {
     }
 
     router.all('*', (req, res, next) => {
-        RoutesMapping[req.method](router, req.path);
-        next();
+        if (typeof RoutesMapping[req.method] !== 'function') {
+            res.status(500).json(`request not handled, it must be one of GET, POST, PUT, PATCH or DELETE.`)
+        } else {
+            RoutesMapping[req.method](router, req.path);
+            next();
+        }
     });
 
     return router;

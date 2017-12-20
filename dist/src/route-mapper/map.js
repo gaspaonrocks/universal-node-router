@@ -44,8 +44,13 @@ function default_1(context, dirName) {
         }
     };
     router.all('*', function (req, res, next) {
-        RoutesMapping[req.method](router, req.path);
-        next();
+        if (typeof RoutesMapping[req.method] !== 'function') {
+            res.status(500).json("request not handled, it must be one of GET, POST, PUT, PATCH or DELETE.");
+        }
+        else {
+            RoutesMapping[req.method](router, req.path);
+            next();
+        }
     });
     return router;
 }

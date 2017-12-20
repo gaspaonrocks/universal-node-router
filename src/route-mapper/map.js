@@ -55,8 +55,12 @@ module.exports = function (context, dirName) {
   }
 
   router.all('*', (req, res, next) => {
-    RoutesMapping[req.method](router, req.path);
-    next();
+    if (typeof RoutesMapping[req.method] !== 'function') {
+      res.status(500).json({ error: 'Request not handled, it must be one of GET, POST, PUT, PATCH, or DELETE' });
+    } else {
+      RoutesMapping[req.method](router, req.path);
+      next();
+    }
   });
 
   return router;

@@ -1,7 +1,7 @@
 import fs = require('fs');
 import path = require('path');
 
-let modulesIndex: Object = {};
+let modulesIndex: object = {};
 
 function startRecursiveCheck(path: string): void {
     fs.readdirSync(path).forEach(e => {
@@ -19,7 +19,7 @@ function nextChecks(name: string, path: string): void {
 };
 
 
-function GlobalModulesIndexer(context: string, dirName: string): Object {
+function GlobalModulesIndexer(context: string, dirName: string): object {
     let absolutePath = path.join(context, dirName);
 
     startRecursiveCheck(absolutePath);

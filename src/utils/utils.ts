@@ -1,8 +1,8 @@
 export default {
-    hasReqParams: function (path: string): boolean {
+    hasReqParams: (path: string): boolean => {
         return path.split('/').filter(e => e.length > 0).length > 1;
     },
-    options: function (path: string): any {
+    options: (path: string): any => {
         let config = {
             ctrl: '',
             url: '/'
