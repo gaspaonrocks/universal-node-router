@@ -4,6 +4,9 @@ module.exports = function (context, dirName) {
   const express = require('express');
   const router = express.Router();
 
+  // error handler
+  let ErrorHandler = require('./error-handler');
+
   // indecCtrlListing will look in the directory given
   // and list all the controller files to use 
   let indexCtrlListing = require('../global-modules-indexer/index');
@@ -20,8 +23,14 @@ module.exports = function (context, dirName) {
 
       if (indexCtrl[ctrl] != null) {
         utils.hasReqParams(path) ?
-          router.get(options.url, (req, res, next) => { return indexCtrl[ctrl].find(req, res, next); }) :
-          router.get(path, (req, res, next) => { return indexCtrl[ctrl].list(req, res, next); });
+          router.get(options.url, (req, res, next) => {
+            if (ErrorHandler.errorChecker(indexCtrl[ctrl].find, 'controller')) res.status(500).send(ErrorHandler.result);
+            else return indexCtrl[ctrl].find(req, res, next);
+          }) :
+          router.get(path, (req, res, next) => {
+            if (ErrorHandler.errorChecker(indexCtrl[ctrl].list, 'controller')) res.status(500).send(ErrorHandler.result);
+            else return indexCtrl[ctrl].list(req, res, next);
+          });
       }
     },
     'POST': function (router, path) {
@@ -29,7 +38,8 @@ module.exports = function (context, dirName) {
 
       if (indexCtrl[ctrl] != null) {
         router.post(path, (req, res, next) => {
-          return indexCtrl[ctrl].create(req, res, next);
+          if (ErrorHandler.errorChecker(indexCtrl[ctrl].create, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexCtrl[ctrl].create(req, res, next);
         })
       }
     },
@@ -39,7 +49,8 @@ module.exports = function (context, dirName) {
 
       if (indexCtrl[ctrl] != null) {
         router.put(options.url, (req, res, next) => {
-          return indexCtrl[ctrl].update(req, res, next);
+          if (ErrorHandler.errorChecker(indexCtrl[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexCtrl[ctrl].update(req, res, next);
         })
       }
     },
@@ -49,7 +60,8 @@ module.exports = function (context, dirName) {
 
       if (indexCtrl[ctrl] != null) {
         router.patch(options.url, (req, res, next) => {
-          return indexCtrl[ctrl].update(req, res, next);
+          if (ErrorHandler.errorChecker(indexCtrl[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexCtrl[ctrl].update(req, res, next);
         })
       }
     },
@@ -59,15 +71,16 @@ module.exports = function (context, dirName) {
 
       if (indexCtrl[ctrl] != null) {
         router.delete(options.url, (req, res, next) => {
-          return indexCtrl[ctrl].delete(req, res, next);
+          if (ErrorHandler.errorChecker(indexCtrl[ctrl].delete, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexCtrl[ctrl].delete(req, res, next);
         })
       }
     }
   }
 
   router.all('*', (req, res, next) => {
-    if (typeof RoutesMapping[req.method] !== 'function') {
-      res.status(500).json({ error: 'Request not handled, it must be one of GET, POST, PUT, PATCH, or DELETE' });
+    if (ErrorHandler.errorChecker(RoutesMapping[req.method], 'mapper')) {
+      res.status(500).send(ErrorHandler.result);
     } else {
       RoutesMapping[req.method](router, req.path);
       next();
