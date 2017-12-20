@@ -73,5 +73,5 @@ You can also post issues if I ever miss something.
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code
- - [ ] Handle errors, undefined methods or undefined controllers.
+ - [X] Handle errors, unknown requests or undefined controllers.
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
