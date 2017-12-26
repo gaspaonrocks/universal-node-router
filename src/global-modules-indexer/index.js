@@ -13,6 +13,7 @@ function startRecursiveCheck(path) {
     fs.statSync(path + '/' + e).isFile() ? indexCtrl[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
   });
 };
+
 function nextChecks(name, path) {
   fs.readdirSync(path).forEach(e => {
     fs.statSync(path + '/' + e).isFile() ? indexCtrl[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);

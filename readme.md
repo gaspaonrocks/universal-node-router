@@ -19,6 +19,19 @@ let router = new Router(__dirname);
 app.use('/api', router.mapper('path/to/controllers/directory'));
 ```
 
+## UPDATE : now there is a TypeScript version
+
+Do this in your server file : 
+
+```typescript
+// import and assign the Route Object Constructor
+let Router = require('universal-node-router').Router  // <= I have to figure out why the Router is a property;
+// create new Object Router with context as parameter
+let router = new Router(__dirname);
+// tell Express to use it as target for your endpoints
+app.use('/api', router.mapper('path/to/controllers/directory'));
+```
+
 It should be used to make it easier to go from writing your client 
 to configuring your server. The url should match the name of your controller.
 
@@ -35,7 +48,7 @@ req.params = {
 
 Beware that controllers should be exported as modules, classes, functions, anything that is accessible.
 
-The methods should have clear names :
+The methods have predefined clear names :
 
 typeOfRequest | nameOfMethod
 --- | ---
@@ -46,8 +59,7 @@ PUT | update
 PATCH | (same method as above)
 DELETE | delete
 
-The choice of DataBase should not impact the router, since the logic is written
-in the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
+The choice of DataBase should not impact the router, since the logic is written inside the controllers, AS LONG AS THE METHOD HAVE THE SAME NAME.
 
 ## Contributing
 If you want to help with anything, unit tests, methods... Submit a pull request and we'll discuss ;-)
@@ -57,7 +69,9 @@ You can also post issues if I ever miss something.
 ## In Development : 
  - [X] A better management of the context for the require
  - [X] A better handling of request (GetCollection vs GetOne)
+ - [X] Migrating to Typescript. Double-check if there is any errors
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
  - [ ] More tests to cover 100% of the code
+ - [X] Handle errors, unknown requests or undefined controllers.
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
