@@ -1,5 +1,5 @@
-import Mapper from './src/route-mapper/map';
-import Indexer from './src/global-modules-indexer';
+import Mapper from './route-mapper/map';
+import Indexer from './global-modules-indexer';
 
 module.exports = class Router {
     private context: string;

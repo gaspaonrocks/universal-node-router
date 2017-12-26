@@ -12,7 +12,7 @@ then when configuring your server with node and express:
 
 ```typescript
 // import and assign the Route Object Constructor
-let Router = require('universal-node-router');
+let Router = require('universal-node-router/dist');
 // create new Object Router with context as parameter
 let router = new Router(__dirname);
 // tell Express to use it as target for your endpoints

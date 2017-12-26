@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var map_1 = require("./src/route-mapper/map");
-var global_modules_indexer_1 = require("./src/global-modules-indexer");
+var map_1 = require("./route-mapper/map");
+var global_modules_indexer_1 = require("./global-modules-indexer");
 module.exports = /** @class */ (function () {
     function Router(context) {
         this.context = context;
