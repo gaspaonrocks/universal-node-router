@@ -18,8 +18,8 @@ If it is still not working, post an issue.`;
                 default:
                     ErrorHandler.result = 'No error here...';
                     return false;
-            }
-        }
+            };
+        };
     }
 };
 

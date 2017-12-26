@@ -1,12 +1,14 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import GlobalModulesIndexer from '../global-modules-indexer/index';
 import Utils from '../utils/utils';
+import ErrorHandler from './error-handler';
 
 export default function (context: string, dirName: string): Router {
     let router: Router = Router();
-    let modulesIndex = GlobalModulesIndexer(context, dirName)
+    let modulesIndex = GlobalModulesIndexer(context, dirName);
 
     let utils = Utils;
+    let handler = new ErrorHandler();
 
     const RoutesMapping = {
         'GET': (router: Router, path: string): void => {
@@ -15,8 +17,14 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 utils.hasReqParams(path) ?
-                    router.get(options.url, (req, res, next) => { return modulesIndex[ctrl].find(req, res, next); }) :
-                    router.get(path, (req, res, next) => { return modulesIndex[ctrl].list(req, res, next); });
+                    router.get(options.url, (req, res, next) => {
+                        if (handler.errorChecker(modulesIndex[ctrl].find, 'controller')) res.status(500).send(handler.result);
+                        else return modulesIndex[ctrl].find(req, res, next);
+                    }) :
+                    router.get(path, (req, res, next) => {
+                        if (handler.errorChecker(modulesIndex[ctrl].list, 'controller')) res.status(500).send(handler.result);
+                        else return modulesIndex[ctrl].list(req, res, next);
+                    });
             }
         },
         'POST': (router: Router, path: string): void => {
@@ -24,7 +32,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.post(path, (req, res, next) => {
-                    return modulesIndex[ctrl].create(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl].create, 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl].create(req, res, next);
                 })
             }
         },
@@ -34,7 +43,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.put(options.url, (req, res, next) => {
-                    return modulesIndex[ctrl].update(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl].update(req, res, next);
                 })
             }
         },
@@ -44,7 +54,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.patch(options.url, (req, res, next) => {
-                    return modulesIndex[ctrl].update(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl].update(req, res, next);
                 })
             }
         },
@@ -54,15 +65,16 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.delete(options.url, (req, res, next) => {
-                    return modulesIndex[ctrl].delete(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl].delete, 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl].delete(req, res, next);
                 })
             }
         }
     }
 
     router.all('*', (req, res, next) => {
-        if (typeof RoutesMapping[req.method] !== 'function') {
-            res.status(500).json(`Request not handled, it must be one of GET, POST, PUT, PATCH or DELETE.`)
+        if (handler.errorChecker(RoutesMapping[req.method], 'mapper')) {
+            res.status(500).json(handler.result);
         } else {
             RoutesMapping[req.method](router, req.path);
             next();
@@ -70,4 +82,4 @@ export default function (context: string, dirName: string): Router {
     });
 
     return router;
-};
+}

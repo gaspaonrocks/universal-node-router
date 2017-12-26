@@ -15,11 +15,9 @@ function nextChecks(name, path) {
         fs.statSync(path + '/' + e).isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
     });
 }
-;
 function GlobalModulesIndexer(context, dirName) {
     var absolutePath = path.join(context, dirName);
     startRecursiveCheck(absolutePath);
     return modulesIndex;
 }
-;
 exports.default = GlobalModulesIndexer;

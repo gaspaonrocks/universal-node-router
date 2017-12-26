@@ -16,7 +16,7 @@ function nextChecks(name: string, path: string): void {
     fs.readdirSync(path).forEach(e => {
         fs.statSync(path + '/' + e).isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
     });
-};
+}
 
 
 function GlobalModulesIndexer(context: string, dirName: string): object {
@@ -25,6 +25,6 @@ function GlobalModulesIndexer(context: string, dirName: string): object {
     startRecursiveCheck(absolutePath);
 
     return modulesIndex;
-};
+}
 
 export default GlobalModulesIndexer;

@@ -10,7 +10,7 @@ module.exports = function (context, dirName) {
   // modulesIndexer will look in the directory given
   // and list all the controller files to use 
   let modulesIndexer = require('../global-modules-indexer/index');
-  let modulesIndex = modulesIndexer(context, dirName);
+  let indexModules = modulesIndexer(context, dirName);
 
   // utils will help us build options to redirect the request
   // to either getCollection or getOne and keep the params
@@ -21,25 +21,25 @@ module.exports = function (context, dirName) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      if (indexCtrl[ctrl] != null) {
+      if (indexModules[ctrl] != null) {
         utils.hasReqParams(path) ?
           router.get(options.url, (req, res, next) => {
-            if (ErrorHandler.errorChecker(indexCtrl[ctrl].find, 'controller')) res.status(500).send(ErrorHandler.result);
-            else return indexCtrl[ctrl].find(req, res, next);
+            if (ErrorHandler.errorChecker(indexModules[ctrl].find, 'controller')) res.status(500).send(ErrorHandler.result);
+            else return indexModules[ctrl].find(req, res, next);
           }) :
           router.get(path, (req, res, next) => {
-            if (ErrorHandler.errorChecker(indexCtrl[ctrl].list, 'controller')) res.status(500).send(ErrorHandler.result);
-            else return indexCtrl[ctrl].list(req, res, next);
+            if (ErrorHandler.errorChecker(indexModules[ctrl].list, 'controller')) res.status(500).send(ErrorHandler.result);
+            else return indexModules[ctrl].list(req, res, next);
           });
       }
     },
     'POST': function (router, path) {
       let ctrl = path.replace('/', '');
 
-      if (indexCtrl[ctrl] != null) {
+      if (indexModules[ctrl] != null) {
         router.post(path, (req, res, next) => {
-          if (ErrorHandler.errorChecker(indexCtrl[ctrl].create, 'controller')) res.status(500).send(ErrorHandler.result);
-          else return indexCtrl[ctrl].create(req, res, next);
+          if (ErrorHandler.errorChecker(indexModules[ctrl].create, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexModules[ctrl].create(req, res, next);
         })
       }
     },
@@ -47,10 +47,10 @@ module.exports = function (context, dirName) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      if (indexCtrl[ctrl] != null) {
+      if (indexModules[ctrl] != null) {
         router.put(options.url, (req, res, next) => {
-          if (ErrorHandler.errorChecker(indexCtrl[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
-          else return indexCtrl[ctrl].update(req, res, next);
+          if (ErrorHandler.errorChecker(indexModules[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexModules[ctrl].update(req, res, next);
         })
       }
     },
@@ -58,10 +58,10 @@ module.exports = function (context, dirName) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      if (indexCtrl[ctrl] != null) {
+      if (indexModules[ctrl] != null) {
         router.patch(options.url, (req, res, next) => {
-          if (ErrorHandler.errorChecker(indexCtrl[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
-          else return indexCtrl[ctrl].update(req, res, next);
+          if (ErrorHandler.errorChecker(indexModules[ctrl].update, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexModules[ctrl].update(req, res, next);
         })
       }
     },
@@ -69,10 +69,10 @@ module.exports = function (context, dirName) {
       let options = utils.options(path);
       let ctrl = options.ctrl;
 
-      if (indexCtrl[ctrl] != null) {
+      if (indexModules[ctrl] != null) {
         router.delete(options.url, (req, res, next) => {
-          if (ErrorHandler.errorChecker(indexCtrl[ctrl].delete, 'controller')) res.status(500).send(ErrorHandler.result);
-          else return indexCtrl[ctrl].delete(req, res, next);
+          if (ErrorHandler.errorChecker(indexModules[ctrl].delete, 'controller')) res.status(500).send(ErrorHandler.result);
+          else return indexModules[ctrl].delete(req, res, next);
         })
       }
     }
