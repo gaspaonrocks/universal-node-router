@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var index_1 = require("../global-modules-indexer/index");
 var utils_1 = require("../utils/utils");
-var error_handler_1 = require("./error-handler");
+var error_handler_1 = require("../utils/error-handler");
 function default_1(context, dirName) {
     var router = express_1.Router();
     var modulesIndex = index_1.default(context, dirName);
