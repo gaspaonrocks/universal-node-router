@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import GlobalModulesIndexer from '../global-modules-indexer/index';
 import Utils from '../utils/utils';
-import ErrorHandler from './error-handler';
+import ErrorHandler from '../utils/error-handler';
 
 export default function (context: string, dirName: string): Router {
     let router: Router = Router();
