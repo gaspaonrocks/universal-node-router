@@ -14,9 +14,12 @@ Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/mas
 If it is still not working, post an issue.`;
           return true;
         default:
-          this.result = 'No error here...';
+          this.result = 'Use case not covered';
           return false;
       }
+    } else if (typeof method === 'function') {
+      this.result = 'No error here...';
+      return false;
     }
   }
 }

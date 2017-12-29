@@ -19,4 +19,44 @@ describe('ErrorHandler module', () => {
   it('ErrorHandler.errorChecker should be a Function', () => {
     expect(typeof TestEH.errorChecker, 'function');
   });
+
+  it('ErrorHandler.errorChecker should return a boolean with a value of false when given an unknown method and any string', () => {
+    function mockFn() {
+      return 'HelloWorldOfTest !';
+    };
+
+    let useCase = TestEH.errorChecker(mockFn, 'anyCase');
+
+    expect(useCase).to.equal(false);
+    expect(TestEH.result).to.equal('No error here...');
+  });
+
+  it('ErrorHandler.errorChecker should return a boolean with a value of false when given an undefined controller method and a string !== "controller" && string !== "mapper"', () => {
+    let mockFn = undefined;
+
+    let useCase = TestEH.errorChecker(mockFn, 'anyCase');
+
+    expect(useCase).to.equal(false);
+    expect(TestEH.result).to.equal('Use case not covered');
+  });
+
+  it('ErrorHandler.errorChecker should return a boolean with a value of true when given an undefined controller method and a string === "mapper"', () => {
+    let mockFn = undefined;
+
+    let useCase = TestEH.errorChecker(mockFn, 'mapper');
+
+    expect(useCase).to.equal(true);
+    expect(TestEH.result).to.equal('Request not handled, it must be one of GET, POST, PUT, PATCH, or DELETE');
+  });
+
+  it('ErrorHandler.errorChecker should return a boolean with a value of true when given an undefined controller method and a string === "controller"', () => {
+    let mockFn = undefined;
+
+    let useCase = TestEH.errorChecker(mockFn, 'controller');
+
+    expect(useCase).to.equal(true);
+    expect(TestEH.result).to.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+  });
 });
