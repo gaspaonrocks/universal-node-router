@@ -12,7 +12,7 @@ then when configuring your server with node and express:
 
 ```typescript
 // import and assign the Route Object Constructor
-let Router = require('universal-node-router/dist');
+let Router = require('universal-node-router');
 // create new Object Router with context as parameter
 let router = new Router(__dirname);
 // tell Express to use it as target for your endpoints
@@ -55,12 +55,7 @@ If you want to help with anything, unit tests, methods... Submit a pull request 
 You can also post issues if I ever miss something.
 
 ## In Development : 
- - [X] A better management of the context for the require
- - [X] A better handling of request (GetCollection vs GetOne)
- - [X] Migrated to Typescript.
- - [ ] Maybe remove all of the previous JS files.
- - [X] Handle errors, unknown requests or undefined controllers.
+ - [ ] More tests to cover 100% of the code - currently at 22%
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
- - [ ] More tests to cover 100% of the code
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
