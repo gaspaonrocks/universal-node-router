@@ -1,0 +1,1 @@
+module.exports = { message: "je NE suis PAS alpha" };
