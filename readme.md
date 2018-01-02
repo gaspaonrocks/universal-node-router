@@ -55,7 +55,8 @@ If you want to help with anything, unit tests, methods... Submit a pull request 
 You can also post issues if I ever miss something.
 
 ## In Development : 
- - [ ] More tests to cover 100% of the code - currently at 22%
+ - [X] Switched to asynchronous import in GlobalModulesIndexer
+ - [ ] More tests to cover 100% of the code - currently at 34%
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
