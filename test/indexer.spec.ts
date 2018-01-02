@@ -11,9 +11,6 @@ describe('ModulesIndexer', () => {
 
   it('Indexer should return an object', () => {
     let useCase = Indexer(__dirname, './mocks');
-
-    console.log(useCase);
-
     expect(useCase).to.be.a('object');
   });
 });

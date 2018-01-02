@@ -4,18 +4,26 @@ import path = require('path');
 let modulesIndex: object = {};
 
 let startRecursiveCheck = (path: string): void => {
-    fs.readdirSync(path).forEach(e => {
-        let name = e.replace('.js', '');
-        modulesIndex[name] = {};
+    fs.readdir(path, (err, content) => {
+        content.forEach(e => {
+            let name = e.replace('.js', '');
+            modulesIndex[name] = {};
 
-        fs.statSync(path + '/' + e).isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
-    });
+            fs.stat(path + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
+            })
+        });
+    })
 }
 
 let nextChecks = (name: string, path: string): void => {
-    fs.readdirSync(path).forEach(e => {
-        fs.statSync(path + '/' + e).isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
-    });
+    fs.readdir(path, (err, content) => {
+        content.forEach(e => {
+            fs.stat(path + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
+            })
+        });
+    })
 }
 
 

@@ -40,9 +40,9 @@ describe('Utils module', () => {
 
   it('Utils.options: url with any number of params', () => {
     let rdmNum = Math.floor((Math.random() * 5));
-    let useString = '';
+    let useString = '/param0';
 
-    for (let i = 0; i <= rdmNum; i++) {
+    for (let i = 1; i <= rdmNum; i++) {
       useString += `/param${i}`;
     };
 
