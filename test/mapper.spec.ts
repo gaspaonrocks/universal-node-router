@@ -30,7 +30,7 @@ describe('RouteMapper', () => {
     expect(typeof useCase).to.equal('function');
   });
 
-  describe('get a collection', () => {
+  describe('handling errors during mapping', () => {
     let request;
 
     beforeEach(() => {
@@ -46,7 +46,8 @@ describe('RouteMapper', () => {
         .expect(500, (err, res) => {
           expect(res.status).to.deep.equal(500);
           expect(res.body).to.deep.equal('Request not handled, it must be one of GET, POST, PUT, PATCH, or DELETE');
-          done();
+          if (err) done(err);
+          else done();
         });
     });
 
@@ -54,9 +55,20 @@ describe('RouteMapper', () => {
       request
         .get('/test/hello/world')
         .expect('Content-type', "text/html; charset=utf-8")
-        .expect(404, () => {
-          done();
+        .expect(404, (err, res) => {
+          if (err) done(err);
+          else done();
         });
+    });
+  });
+
+  describe('mapping to controller with methods correctly named', () => {
+    let request;
+
+    beforeEach(() => {
+      app.use('/', map);
+
+      request = supertest(app);
     });
 
     it('should return a collection', (done) => {
@@ -64,8 +76,153 @@ describe('RouteMapper', () => {
         .get('/index')
         .set('Content-type', 'application/json')
         .expect(200, (err, res) => {
-          done();
+          if (err) done(err);
+          else done();
         });
     });
-  })
+
+    it('should return a single document', (done) => {
+      request
+        .get('/index/param1')
+        .set('Content-type', 'application/json')
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should post a single document', (done) => {
+      request
+        .post('/index')
+        .set('Content-type', 'application/json')
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should update a single document', (done) => {
+      request
+        .put('/index')
+        .set('Content-type', 'application/json')
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should update a single document', (done) => {
+      request
+        .patch('/index')
+        .set('Content-type', 'application/json')
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should delete a single document', (done) => {
+      request
+        .delete('/index')
+        .set('Content-type', 'application/json')
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          else done();
+        });
+    });
+  });
+
+  describe('mapping to controller with methods incorrectly named', () => {
+    let request;
+
+    beforeEach(() => {
+      app.use('/', map);
+
+      request = supertest(app);
+    });
+
+    it('should return a collection', (done) => {
+      request
+        .get('/beta')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should return a single document', (done) => {
+      request
+        .get('/beta/param1')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should post a single document', (done) => {
+      request
+        .post('/beta')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should update a single document', (done) => {
+      request
+        .put('/beta')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should update a single document', (done) => {
+      request
+        .patch('/beta')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+
+    it('should delete a single document', (done) => {
+      request
+        .delete('/beta')
+        .set('Content-type', 'application/json')
+        .expect(500, (err, res) => {
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
+If it is still not working, post an issue.`);
+          if (err) done(err);
+          else done();
+        });
+    });
+  });
 });

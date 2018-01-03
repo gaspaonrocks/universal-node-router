@@ -5,7 +5,7 @@ let modulesIndex: object = {};
 
 let startRecursiveCheck = (filePath: string): void => {
     fs.readdir(filePath, (err, content) => {
-        if (err) console.error(err);
+        if (err) throw new Error(err.message);
         else content.forEach(e => {
             let name = e.replace('.js', '');
             modulesIndex[name] = {};
@@ -19,7 +19,7 @@ let startRecursiveCheck = (filePath: string): void => {
 
 let nextChecks = (name: string, filePath: string): void => {
     fs.readdir(filePath, (err, content) => {
-        if (err) console.error(err);
+        if (err) throw new Error(err.message);
         else content.forEach(e => {
             fs.stat(filePath + '/' + e, (err, result) => {
                 result.isFile() ? modulesIndex[name] = require(filePath + '/' + e) : nextChecks(name, filePath + '/' + e);
