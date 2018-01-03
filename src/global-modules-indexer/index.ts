@@ -3,25 +3,27 @@ import path = require('path');
 
 let modulesIndex: object = {};
 
-let startRecursiveCheck = (path: string): void => {
-    fs.readdir(path, (err, content) => {
-        content.forEach(e => {
+let startRecursiveCheck = (filePath: string): void => {
+    fs.readdir(filePath, (err, content) => {
+        if (err) console.error(err);
+        else content.forEach(e => {
             let name = e.replace('.js', '');
             modulesIndex[name] = {};
 
-            fs.stat(path + '/' + e, (err, result) => {
-                result.isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
-            })
+            fs.stat(filePath + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = require(filePath + '/' + e) : nextChecks(name, filePath + '/' + e);
+            });
         });
     })
 }
 
-let nextChecks = (name: string, path: string): void => {
-    fs.readdir(path, (err, content) => {
-        content.forEach(e => {
-            fs.stat(path + '/' + e, (err, result) => {
-                result.isFile() ? modulesIndex[name] = require(path + '/' + e) : nextChecks(name, path + '/' + e);
-            })
+let nextChecks = (name: string, filePath: string): void => {
+    fs.readdir(filePath, (err, content) => {
+        if (err) console.error(err);
+        else content.forEach(e => {
+            fs.stat(filePath + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = require(filePath + '/' + e) : nextChecks(name, filePath + '/' + e);
+            });
         });
     })
 }
