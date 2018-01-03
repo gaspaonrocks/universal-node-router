@@ -56,7 +56,7 @@ You can also post issues if I ever miss something.
 
 ## In Development : 
  - [X] Switched to asynchronous import in GlobalModulesIndexer
- - [ ] More tests to cover 100% of the code - currently at 59%
+ - [ ] More tests to cover 100% of the code - currently at 94%
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A config file to use custom method names
  - [ ] A webpack plugin for modern projects (dynamic require doesn't work yet...)
