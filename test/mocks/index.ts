@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   list(req, res, next) {
     res.status(200).json({ message: 'You did GET a collection from index' });
   },

@@ -7,11 +7,11 @@ let startRecursiveCheck = (filePath: string): void => {
     fs.readdir(filePath, (err, content) => {
         if (err) throw new Error(err.message);
         else content.forEach(e => {
-            let name = e.replace('.js', '');
+            let name = e.replace(/.(j|t)s/, '');
             modulesIndex[name] = {};
 
             fs.stat(filePath + '/' + e, (err, result) => {
-                result.isFile() ? modulesIndex[name] = require(filePath + '/' + e) : nextChecks(name, filePath + '/' + e);
+                result.isFile() ? modulesIndex[name] = requireMyFile(e, filePath) : nextChecks(name, filePath + '/' + e);
             });
         });
     })
@@ -22,10 +22,14 @@ let nextChecks = (name: string, filePath: string): void => {
         if (err) throw new Error(err.message);
         else content.forEach(e => {
             fs.stat(filePath + '/' + e, (err, result) => {
-                result.isFile() ? modulesIndex[name] = require(filePath + '/' + e) : nextChecks(name, filePath + '/' + e);
+                result.isFile() ? modulesIndex[name] = requireMyFile(e, filePath) : nextChecks(name, filePath + '/' + e);
             });
         });
     })
+}
+
+let requireMyFile = (fileName: string, filePath: string): void => {
+    return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
 }
 
 

@@ -141,7 +141,7 @@ describe('RouteMapper', () => {
       request = supertest(app);
     });
 
-    it('should return a collection', (done) => {
+    it('should return an error when fetching a collection', (done) => {
       request
         .get('/beta')
         .set('Content-type', 'application/json')
@@ -155,7 +155,7 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it('should return a single document', (done) => {
+    it('should return an error when fetching a single document', (done) => {
       request
         .get('/beta/param1')
         .set('Content-type', 'application/json')
@@ -169,7 +169,7 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it('should post a single document', (done) => {
+    it('should return an error when posting a single document', (done) => {
       request
         .post('/beta')
         .set('Content-type', 'application/json')
@@ -183,7 +183,7 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it('should update a single document', (done) => {
+    it('should return an error when updating a single document', (done) => {
       request
         .put('/beta')
         .set('Content-type', 'application/json')
@@ -197,7 +197,7 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it('should update a single document', (done) => {
+    it('should return an error when updating a single document', (done) => {
       request
         .patch('/beta')
         .set('Content-type', 'application/json')
@@ -211,7 +211,7 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it('should delete a single document', (done) => {
+    it('should return an error when deleting a single document', (done) => {
       request
         .delete('/beta')
         .set('Content-type', 'application/json')

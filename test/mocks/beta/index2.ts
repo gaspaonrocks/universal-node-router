@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   listAll(req, res, next) {
     res.status(200).json({ message: 'You did GET a collection from beta' });
   },
