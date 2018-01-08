@@ -9,7 +9,11 @@ import * as sinon from 'sinon';
 let bodyParser = require('body-parser');
 
 const Router = require('../src');
-const router = new Router(__dirname);
+let customConfig = {
+  getAll: 'listAll',
+  getOne: 'findOne'
+};
+const router = new Router(__dirname, customConfig);
 const app = express();
 
 // Tell Express that messages bodies will be JSON formatted

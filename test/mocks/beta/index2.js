@@ -1,8 +1,8 @@
-export default {
-  listAll(req, res, next) {
+module.exports = {
+  list(req, res, next) {
     res.status(200).json({ message: 'You did GET a collection from beta' });
   },
-  findOne(req, res, next) {
+  find(req, res, next) {
     res.status(200).json({ message: 'You did GET a single document from beta' });
   },
   createOne(req, res, next) {

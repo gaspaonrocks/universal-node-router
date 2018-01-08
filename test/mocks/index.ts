@@ -1,8 +1,8 @@
 export default {
-  list(req, res, next) {
+  listAll(req, res, next) {
     res.status(200).json({ message: 'You did GET a collection from index' });
   },
-  find(req, res, next) {
+  findOne(req, res, next) {
     res.status(200).json({ message: 'You did GET a single document from index' });
   },
   create(req, res, next) {
