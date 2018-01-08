@@ -4,7 +4,7 @@ var express_1 = require("express");
 var index_1 = require("../global-modules-indexer/index");
 var utils_1 = require("../utils/utils");
 var error_handler_1 = require("../utils/error-handler");
-function default_1(context, dirName) {
+function default_1(context, config, dirName) {
     var router = express_1.Router();
     var modulesIndex = index_1.default(context, dirName);
     var utils = utils_1.default;
@@ -16,16 +16,16 @@ function default_1(context, dirName) {
             if (modulesIndex[ctrl] != null) {
                 utils.hasReqParams(path) ?
                     router.get(options.url, function (req, res, next) {
-                        if (handler.errorChecker(modulesIndex[ctrl].find, 'controller'))
+                        if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('getOne')], 'controller'))
                             res.status(500).send(handler.result);
                         else
-                            return modulesIndex[ctrl].find(req, res, next);
+                            return modulesIndex[ctrl][config.getMethod('getOne')](req, res, next);
                     }) :
                     router.get(path, function (req, res, next) {
-                        if (handler.errorChecker(modulesIndex[ctrl].list, 'controller'))
+                        if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('getAll')], 'controller'))
                             res.status(500).send(handler.result);
                         else
-                            return modulesIndex[ctrl].list(req, res, next);
+                            return modulesIndex[ctrl][config.getMethod('getAll')](req, res, next);
                     });
             }
         },
@@ -33,10 +33,10 @@ function default_1(context, dirName) {
             var ctrl = path.replace('/', '');
             if (modulesIndex[ctrl] != null) {
                 router.post(path, function (req, res, next) {
-                    if (handler.errorChecker(modulesIndex[ctrl].create, 'controller'))
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('post')], 'controller'))
                         res.status(500).send(handler.result);
                     else
-                        return modulesIndex[ctrl].create(req, res, next);
+                        return modulesIndex[ctrl][config.getMethod('post')](req, res, next);
                 });
             }
         },
@@ -45,10 +45,10 @@ function default_1(context, dirName) {
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.put(options.url, function (req, res, next) {
-                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller'))
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller'))
                         res.status(500).send(handler.result);
                     else
-                        return modulesIndex[ctrl].update(req, res, next);
+                        return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 });
             }
         },
@@ -57,10 +57,10 @@ function default_1(context, dirName) {
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.patch(options.url, function (req, res, next) {
-                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller'))
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller'))
                         res.status(500).send(handler.result);
                     else
-                        return modulesIndex[ctrl].update(req, res, next);
+                        return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 });
             }
         },
@@ -69,10 +69,10 @@ function default_1(context, dirName) {
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.delete(options.url, function (req, res, next) {
-                    if (handler.errorChecker(modulesIndex[ctrl].delete, 'controller'))
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('delete')], 'controller'))
                         res.status(500).send(handler.result);
                     else
-                        return modulesIndex[ctrl].delete(req, res, next);
+                        return modulesIndex[ctrl][config.getMethod('delete')](req, res, next);
                 });
             }
         }

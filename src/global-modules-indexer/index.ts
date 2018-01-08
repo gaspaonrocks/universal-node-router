@@ -28,7 +28,7 @@ let nextChecks = (name: string, filePath: string): void => {
     })
 }
 
-let requireMyFile = (fileName: string, filePath: string): void => {
+let requireMyFile = (fileName: string, filePath: string): Function => {
     return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
 }
 

@@ -3,7 +3,7 @@ import GlobalModulesIndexer from '../global-modules-indexer/index';
 import Utils from '../utils/utils';
 import ErrorHandler from '../utils/error-handler';
 
-export default function (context: string, dirName: string): Router {
+export default function (context: string, config:any, dirName: string): Router {
     let router: Router = Router();
     let modulesIndex = GlobalModulesIndexer(context, dirName);
 
@@ -18,12 +18,12 @@ export default function (context: string, dirName: string): Router {
             if (modulesIndex[ctrl] != null) {
                 utils.hasReqParams(path) ?
                     router.get(options.url, (req, res, next) => {
-                        if (handler.errorChecker(modulesIndex[ctrl].find, 'controller')) res.status(500).send(handler.result);
-                        else return modulesIndex[ctrl].find(req, res, next);
+                        if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('getOne')], 'controller')) res.status(500).send(handler.result);
+                        else return modulesIndex[ctrl][config.getMethod('getOne')](req, res, next);
                     }) :
                     router.get(path, (req, res, next) => {
-                        if (handler.errorChecker(modulesIndex[ctrl].list, 'controller')) res.status(500).send(handler.result);
-                        else return modulesIndex[ctrl].list(req, res, next);
+                        if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('getAll')], 'controller')) res.status(500).send(handler.result);
+                        else return modulesIndex[ctrl][config.getMethod('getAll')](req, res, next);
                     });
             }
         },
@@ -32,8 +32,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.post(path, (req, res, next) => {
-                    if (handler.errorChecker(modulesIndex[ctrl].create, 'controller')) res.status(500).send(handler.result);
-                    else return modulesIndex[ctrl].create(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('post')], 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl][config.getMethod('post')](req, res, next);
                 })
             }
         },
@@ -43,8 +43,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.put(options.url, (req, res, next) => {
-                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller')) res.status(500).send(handler.result);
-                    else return modulesIndex[ctrl].update(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 })
             }
         },
@@ -54,8 +54,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.patch(options.url, (req, res, next) => {
-                    if (handler.errorChecker(modulesIndex[ctrl].update, 'controller')) res.status(500).send(handler.result);
-                    else return modulesIndex[ctrl].update(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 })
             }
         },
@@ -65,8 +65,8 @@ export default function (context: string, dirName: string): Router {
 
             if (modulesIndex[ctrl] != null) {
                 router.delete(options.url, (req, res, next) => {
-                    if (handler.errorChecker(modulesIndex[ctrl].delete, 'controller')) res.status(500).send(handler.result);
-                    else return modulesIndex[ctrl].delete(req, res, next);
+                    if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('delete')], 'controller')) res.status(500).send(handler.result);
+                    else return modulesIndex[ctrl][config.getMethod('delete')](req, res, next);
                 })
             }
         }

@@ -1,13 +1,16 @@
 import Mapper from './route-mapper/map';
 import Indexer from './global-modules-indexer';
+import Config from './utils/config';
 
 module.exports = class Router {
     private context: string;
-    constructor(context: string) {
+    private config: any;
+    constructor(context: string, customConfig: any = {}) {
         this.context = context;
+        this.config = new Config(customConfig);
     }
     mapper(dirPath: string): Function {
-        return Mapper(this.context, dirPath);
+        return Mapper(this.context, this.config, dirPath);
     }
     indexer(dirPath: string): object {
         return Indexer(this.context, dirPath);
