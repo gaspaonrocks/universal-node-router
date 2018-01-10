@@ -26,11 +26,11 @@ describe('Utils module', () => {
   });
 
   it('Utils.options should be a Function', () => {
-    expect(typeof Utils.options, 'function');
+    expect(typeof Utils.reqParamsOptions, 'function');
   });
 
   it('Utils.options: url with no params', () => {
-    let useCase = Utils.options('thisisatest');
+    let useCase = Utils.reqParamsOptions('thisisatest');
 
     expect(useCase).to.be.a('object');
     expect(useCase).to.have.property('ctrl');
@@ -46,7 +46,7 @@ describe('Utils module', () => {
       useString += `/param${i}`;
     };
 
-    let useCase = Utils.options(useString);
+    let useCase = Utils.reqParamsOptions(useString);
 
     expect(useCase).to.be.a('object');
     expect(useCase).to.have.property('ctrl').to.equal('param0');
