@@ -12,7 +12,7 @@ export default function (context: string, config:any, dirName: string): Router {
 
     const RoutesMapping = {
         'GET': (router: Router, path: string): void => {
-            let options = utils.options(path);
+            let options = utils.reqParamsOptions(path);
             let ctrl = options.ctrl;
 
             if (modulesIndex[ctrl] != null) {
@@ -38,7 +38,7 @@ export default function (context: string, config:any, dirName: string): Router {
             }
         },
         'PUT': (router: Router, path: string): void => {
-            let options = utils.options(path);
+            let options = utils.reqParamsOptions(path);
             let ctrl = options.ctrl;
 
             if (modulesIndex[ctrl] != null) {
@@ -49,7 +49,7 @@ export default function (context: string, config:any, dirName: string): Router {
             }
         },
         'PATCH': (router: Router, path: string): void => {
-            let options = utils.options(path);
+            let options = utils.reqParamsOptions(path);
             let ctrl = options.ctrl;
 
             if (modulesIndex[ctrl] != null) {
@@ -60,7 +60,7 @@ export default function (context: string, config:any, dirName: string): Router {
             }
         },
         'DELETE': (router: Router, path: string): void => {
-            let options = utils.options(path);
+            let options = utils.reqParamsOptions(path);
             let ctrl = options.ctrl;
 
             if (modulesIndex[ctrl] != null) {

@@ -4,7 +4,7 @@ exports.default = {
     hasReqParams: function (path) {
         return path.split('/').filter(function (e) { return e.length > 0; }).length > 1;
     },
-    options: function (path) {
+    reqParamsOptions: function (path) {
         var config = {
             ctrl: '',
             url: '/'
@@ -17,5 +17,8 @@ exports.default = {
             config.url += "/:param" + i;
         }
         return config;
+    },
+    requireMyTsFile: function (fileName, filePath) {
+        return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
     }
 };

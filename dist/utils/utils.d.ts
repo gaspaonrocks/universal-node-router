@@ -1,5 +1,6 @@
 declare const _default: {
     hasReqParams: (path: string) => boolean;
-    options: (path: string) => any;
+    reqParamsOptions: (path: string) => any;
+    requireMyTsFile: (fileName: string, filePath: string) => Function;
 };
 export default _default;

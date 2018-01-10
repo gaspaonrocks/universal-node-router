@@ -11,7 +11,7 @@ function default_1(context, config, dirName) {
     var handler = new error_handler_1.default();
     var RoutesMapping = {
         'GET': function (router, path) {
-            var options = utils.options(path);
+            var options = utils.reqParamsOptions(path);
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 utils.hasReqParams(path) ?
@@ -41,7 +41,7 @@ function default_1(context, config, dirName) {
             }
         },
         'PUT': function (router, path) {
-            var options = utils.options(path);
+            var options = utils.reqParamsOptions(path);
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.put(options.url, function (req, res, next) {
@@ -53,7 +53,7 @@ function default_1(context, config, dirName) {
             }
         },
         'PATCH': function (router, path) {
-            var options = utils.options(path);
+            var options = utils.reqParamsOptions(path);
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.patch(options.url, function (req, res, next) {
@@ -65,7 +65,7 @@ function default_1(context, config, dirName) {
             }
         },
         'DELETE': function (router, path) {
-            var options = utils.options(path);
+            var options = utils.reqParamsOptions(path);
             var ctrl = options.ctrl;
             if (modulesIndex[ctrl] != null) {
                 router.delete(options.url, function (req, res, next) {

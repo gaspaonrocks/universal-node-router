@@ -76,6 +76,6 @@ You can also post issues if I ever miss something.
 
 ## IN DEVELOPMENT : 
  - [X] A config file to use custom method names
- - [ ] Need to test the custom config
+ - [X] Need to test the custom config
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A webpack plugin for modern projects to allow dynamic imports

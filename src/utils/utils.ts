@@ -2,11 +2,12 @@ export default {
     hasReqParams: (path: string): boolean => {
         return path.split('/').filter(e => e.length > 0).length > 1;
     },
-    options: (path: string): any => {
+    reqParamsOptions: (path: string): any => {
         let config = {
             ctrl: '',
             url: '/'
         };
+
         let array = path.split('/').filter(e => e.length > 0);
         config.ctrl = array[0];
         config.url += array[0];
@@ -17,5 +18,8 @@ export default {
         }
 
         return config;
+    },
+    requireMyTsFile: (fileName: string, filePath: string): Function => {
+        return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
     }
 };
