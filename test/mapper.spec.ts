@@ -57,7 +57,7 @@ describe('RouteMapper', () => {
 
     it('should return 404 if url is not matching anything', (done) => {
       request
-        .get('/hello/world')
+        .get('/test/hello/world')
         .expect('Content-type', "text/html; charset=utf-8")
         .expect(404, (err, res) => {
           if (err) done(err);
