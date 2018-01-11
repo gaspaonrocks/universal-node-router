@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Config = /** @class */ (function () {
-    function Config(config) {
+class Config {
+    constructor(config) {
         this.methodNames = {
             getAll: "list",
             getOne: "find",
@@ -11,15 +11,14 @@ var Config = /** @class */ (function () {
         };
         this.setMethods(config);
     }
-    Config.prototype.getMethod = function (key) {
+    getMethod(key) {
         return this.methodNames[key];
-    };
-    Config.prototype.setMethods = function (config) {
-        for (var key in this.methodNames) {
+    }
+    setMethods(config) {
+        for (let key in this.methodNames) {
             if (config[key] != null)
                 this.methodNames[key] = config[key];
         }
-    };
-    return Config;
-}());
+    }
+}
 exports.default = Config;
