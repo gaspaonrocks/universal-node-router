@@ -9,8 +9,8 @@ describe('ModulesIndexer', () => {
     expect(typeof Indexer, 'function');
   });
 
-  it('Indexer should return an object', () => {
+  it('Indexer should return a Promise object', () => {
     let useCase = Indexer(__dirname, './mocks');
-    expect(useCase).to.be.a('object');
+    expect(useCase).to.be.a('promise');
   });
 });
