@@ -6,5 +6,9 @@ install:
 script:
   - npm run cover
 
+before_script:
+  - "sh -e /etc/init.d/xvfb start" # magic here ?
+  - sleep 3 # give xvfb some time to start
+
 # Send coverage data to Coveralls
 after_script: "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
