@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({
 const map = router.mapper('./mocks');
 
 describe('RouteMapper', () => {
+  let request;
+
   it('should be a function', () => {
     expect(typeof router.mapper).to.equal('function');
   });
@@ -34,15 +36,13 @@ describe('RouteMapper', () => {
     expect(typeof useCase).to.equal('function');
   });
 
+  beforeEach(() => {
+    app.use('/', map);
+
+    request = supertest(app);
+  });
+
   describe('handling errors during mapping', () => {
-    let request;
-
-    beforeEach(() => {
-      app.use('/', map);
-
-      request = supertest(app);
-    });
-
     it('should return an error 500 if request is not handled', () => {
       return request
         .link('/test')
@@ -55,32 +55,27 @@ describe('RouteMapper', () => {
         .catch(err => console.error(err))
     });
 
-    xit('should return 404 if url is not matching anything', () => {
+    it('should return 404 if url is not matching anything', () => {
       return request
         .get('/this/is/not/a/known/adress')
         .expect('Content-type', "text/html; charset=utf-8")
-        .expect(res => {
-          expect(res.status).to.deep.equal(500)
+        .expect(404)
+        .then(res => {
+          expect(res.status).to.deep.equal(404);
+          expect(res.res.statusMessage).to.deep.equal('Not Found');
         })
+        .catch(err => console.error(err))
     });
   })
 
   describe('mapping to controller with methods correctly named', () => {
-    let request;
-
-    beforeEach(() => {
-      app.use('/', map);
-
-      request = supertest(app);
-    });
-
     it('should return a collection', () => {
       return request
         .get('/index')
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
 
     it('should return a single document', () => {
@@ -89,7 +84,7 @@ describe('RouteMapper', () => {
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
 
     it('should post a single document', () => {
@@ -98,7 +93,7 @@ describe('RouteMapper', () => {
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
 
     it('should update a single document', () => {
@@ -107,7 +102,7 @@ describe('RouteMapper', () => {
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
 
     it('should update a single document', () => {
@@ -116,7 +111,7 @@ describe('RouteMapper', () => {
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
 
     it('should delete a single document', () => {
@@ -125,18 +120,12 @@ describe('RouteMapper', () => {
         .set('Content-type', 'application/json')
         .expect(200)
         .then()
-        .catch()
+        .catch(err => console.error(err))
     });
   });
 
   describe('mapping to controller with methods incorrectly named', () => {
-    let request;
 
-    beforeEach(() => {
-      app.use('/', map);
-
-      request = supertest(app);
-    });
 
     it('should return an error when fetching a collection', () => {
       return request
