@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 }));
 const map = router.mapper('./mocks');
 
-xdescribe('RouteMapper', () => {
+describe('RouteMapper', () => {
   it('should be a function', () => {
     expect(typeof router.mapper).to.equal('function');
   });
