@@ -7,12 +7,9 @@ const error_handler_1 = require("../utils/error-handler");
 function default_1(context, config, dirName) {
     let router = express_1.Router();
     let modulesIndex;
-    let setModules = () => {
-        return index_1.default(context, dirName).then(result => {
-            return modulesIndex = result;
-        });
-    };
-    setModules();
+    index_1.default(context, dirName).then(result => {
+        modulesIndex = result;
+    });
     let utils = utils_1.default;
     let handler = new error_handler_1.default();
     const RoutesMapping = {
