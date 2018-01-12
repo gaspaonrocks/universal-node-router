@@ -4,6 +4,7 @@
   "description": "a simple router that matches requests to corresponding backend controllers",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "cover": "nyc npm run test"
   },
