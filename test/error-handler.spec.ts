@@ -6,7 +6,7 @@ import 'mocha';
 import ErrorHandler from '../src/utils/error-handler';
 let TestEH = new ErrorHandler();
 
-xdescribe('ErrorHandler module', () => {
+describe('ErrorHandler module', () => {
   it('ErrorHandler should be a class', () => {
     expect(typeof TestEH, 'class');
   });
