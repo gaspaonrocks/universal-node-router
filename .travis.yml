@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - stable
-services: < — — — — — -This was the soultion
+services:
   – mongodb
 install:
   - npm upgrade && install
