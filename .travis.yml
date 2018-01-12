@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-  - stable
-services:
-  – mongodb
+  - v8.4.0
 install:
-  - npm upgrade && npm install
+  - npm install
 script:
   - npm run cover
 
