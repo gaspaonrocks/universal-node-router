@@ -3,13 +3,17 @@ import GlobalModulesIndexer from '../global-modules-indexer/index';
 import Utils from '../utils/utils';
 import ErrorHandler from '../utils/error-handler';
 
+
 export default function (context: string, config: any, dirName: string): Router {
     let router: Router = Router();
     let modulesIndex: object;
-
-    GlobalModulesIndexer(context, dirName).then(result => {
-        modulesIndex = result;
-    });
+    
+    let setModules = () => {
+        return GlobalModulesIndexer(context, dirName).then(result => {
+            return modulesIndex = result;
+        });
+    }
+    setModules();
 
     let utils = Utils;
     let handler = new ErrorHandler();
