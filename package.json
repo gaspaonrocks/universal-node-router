@@ -33,6 +33,7 @@
     "@types/chai": "^4.1.0",
     "@types/mocha": "^2.2.46",
     "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^4.1.0",

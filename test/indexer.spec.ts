@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import 'mocha';
 import Indexer from '../src/global-modules-indexer/index';
 
-describe('ModulesIndexer', () => {
+xdescribe('ModulesIndexer', () => {
   it('Indexer should be a function', () => {
     expect(typeof Indexer, 'function');
   });
