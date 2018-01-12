@@ -3,20 +3,10 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 
-// Import Router constructor
-let Router = require('../../index');
-// create custom config
-let customConfig = {
-  getAll: 'listAll',
-  getOne: 'findOne'
-};
-// Instantiate new Router object with the context as parameter
-let router = new Router(__dirname, customConfig);
-
 // Create an Express application
 let app = express();
 
-module.exports = function () {
+module.exports = function (fn) {
   // Tell Express that messages bodies will be JSON formatted
   app.use(bodyParser.json());
   // Only parses urlencoded bodies (gzip and deflate enabled)
@@ -25,7 +15,7 @@ module.exports = function () {
   }));
 
   // Set web service routes with controller directory
-  app.use('/test', router.mapper('../mocks'));
+  app.use('/test', fn);
 
   // Unknown route handler
   app.use((req, res) => {

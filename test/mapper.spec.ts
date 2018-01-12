@@ -7,14 +7,14 @@ import 'mocha';
 import {expect} from 'chai';
 import * as supertest from 'supertest';
 
-import Router from '../src/route-mapper/map';
-
+let Router = require('../src');
+// create custom config
 let customConfig = {
   getAll: 'listAll',
   getOne: 'findOne'
 };
-
-let router = Router(__dirname, customConfig, './mocks')
+// Instantiate new Router object with the context as parameter
+let router = new Router(__dirname, customConfig);
 
 const createStubServer = require('./stub/stubServer');
 let server, request;
@@ -22,9 +22,8 @@ let server, request;
 /**
  * Start testing
  */
-
 describe('RouteMapper', () => {
-  server = createStubServer();
+  server = createStubServer(router.mapper('./mocks'));
   request = supertest(server);
 
   it('should be a function setting up routing', () => {
