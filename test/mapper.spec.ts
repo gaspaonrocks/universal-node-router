@@ -63,8 +63,7 @@ describe('RouteMapper', () => {
     it('should return a collection', (done) => {
       request
         .get('/test/index')
-        .expect(200)
-        .end((err, res) => {
+        .expect(200, (err, res) => {
           if (err) done(err)
           expect(err).to.be.null
           expect(res.status).to.deep.equal(200);
@@ -75,8 +74,7 @@ describe('RouteMapper', () => {
     it('should return a single document', (done) => {
       request
         .get('/test/index/param1')
-        .expect(200)
-        .end((err, res) => {
+        .expect(200, (err, res) => {
           if (err) done(err)
           expect(err).to.be.null
           expect(res.status).to.deep.equal(200);

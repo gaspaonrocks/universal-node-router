@@ -1,12 +1,12 @@
 export default class Config {
-  private methodNames: any = {
+  private methodNames: object = {
     getAll: "list",
     getOne: "find",
     post: "create",
     update: "update",
     delete: "delete"
   }
-  constructor(config: any) {
+  constructor(config: object) {
     this.setMethods(config);
   }
 
@@ -14,7 +14,7 @@ export default class Config {
     return this.methodNames[key];
   }
 
-  private setMethods(config: any) {
+  private setMethods(config: object) {
     for (let key in this.methodNames) {
       if (config[key] != null) this.methodNames[key] = config[key];
     }
