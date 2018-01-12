@@ -7,13 +7,10 @@ import ErrorHandler from '../utils/error-handler';
 export default function (context: string, config: any, dirName: string): Router {
     let router: Router = Router();
     let modulesIndex: object;
-    
-    let setModules = () => {
-        return GlobalModulesIndexer(context, dirName).then(result => {
-            return modulesIndex = result;
-        });
-    }
-    setModules();
+
+    GlobalModulesIndexer(context, dirName).then(result => {
+        modulesIndex = result;
+    });
 
     let utils = Utils;
     let handler = new ErrorHandler();

@@ -13,8 +13,9 @@ let customConfig = {
   getAll: 'listAll',
   getOne: 'findOne'
 };
+
 // Instantiate new Router object with the context as parameter
-let router = new Router(__dirname, customConfig);
+let router = new Router(process.cwd(), customConfig);
 
 const createStubServer = require('./stub/stubServer');
 let server, request;
