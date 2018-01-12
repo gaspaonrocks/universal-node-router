@@ -5,7 +5,7 @@ import 'mocha';
 
 import Utils from '../src/utils/utils';
 
-xdescribe('Utils module', () => {
+describe('Utils module', () => {
   it('Utils should be an object', () => {
     expect(typeof Utils, 'object');
   });
