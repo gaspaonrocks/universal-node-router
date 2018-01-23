@@ -51,7 +51,6 @@ let setUpModules = (fileList) => {
 };
 let GlobalModulesIndexer = (context, dirName) => {
     let absolutePath = path.join(context, dirName);
-    //startRecursiveCheck(absolutePath);
     return StartIt(absolutePath).then(setUpModules);
 };
 exports.default = GlobalModulesIndexer;

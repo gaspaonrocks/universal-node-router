@@ -57,7 +57,6 @@ let setUpModules = (fileList): object => {
 let GlobalModulesIndexer = (context: string, dirName: string): Promise<object> => {
     let absolutePath = path.join(context, dirName);
 
-    //startRecursiveCheck(absolutePath);
     return StartIt(absolutePath).then(setUpModules)
 }
 
