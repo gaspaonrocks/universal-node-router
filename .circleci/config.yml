@@ -1,0 +1,27 @@
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+version: 2
+jobs:
+  build:
+    working_directory: ~/universal-node-router
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/mongo:latest
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: 
+          name: update-typescript
+          command: 'sudo npm install -g typescript'
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: 
+          name: code-coverage
+          command: npm run cover
