@@ -12,7 +12,4 @@ module.exports = class Router {
     mapper(dirPath: string): Function {
         return Mapper(this.context, this.config, dirPath);
     }
-    indexer(dirPath: string): object {
-        return Indexer(this.context, dirPath);
-    }
 }
