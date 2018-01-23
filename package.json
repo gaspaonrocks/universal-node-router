@@ -1,6 +1,6 @@
 {
   "name": "universal-node-router",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "a simple router that matches requests to corresponding backend controllers",
   "main": "index.js",
   "scripts": {
