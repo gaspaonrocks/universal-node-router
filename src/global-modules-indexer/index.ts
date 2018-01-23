@@ -1,63 +1,41 @@
-import fs = require('fs');
-import path = require('path');
-import Utils from '../utils/utils';
+import * as fs from 'fs';
+import * as path from 'path';
+import Utils  from '../utils/utils';
 
 let utils = Utils;
-let fileQueue: Array<string> = [];
-let dirQueue: Array<string> = [];
+let modulesIndex: object = {};
 
-let getPathList = (inputDir: string): Promise<any> => {
-    return new Promise<any>((resolve, reject) => {
-        fs.readdir(inputDir, (err, content) => {
-            if (err) reject(err);
-            resolve(content.map((item) => path.resolve(inputDir, item)));
-        })
+let startRecursiveCheck = (filePath: string): void => {
+    fs.readdir(filePath, (err, content) => {
+        if (err) throw new Error(err.message);
+        else content.forEach(e => {
+            let name = e.replace(/.(j|t)s/, '');
+            modulesIndex[name] = {};
+
+            fs.stat(filePath + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = utils.requireMyTsFile(e, filePath) : nextChecks(name, filePath + '/' + e);
+            });
+        });
     })
 }
 
-let getStat = (path: string): Promise<any> => {
-    return new Promise<any>((resolve, reject) => {
-        fs.stat(path, (err, result) => {
-            if (err) reject(err);
-            resolve(result.isFile() ? fileQueue.push(path) : dirQueue.push(path))
-        })
+let nextChecks = (name: string, filePath: string): void => {
+    fs.readdir(filePath, (err, content) => {
+        if (err) throw new Error(err.message);
+        else content.forEach(e => {
+            fs.stat(filePath + '/' + e, (err, result) => {
+                result.isFile() ? modulesIndex[name] = utils.requireMyTsFile(e, filePath) : nextChecks(name, filePath + '/' + e);
+            });
+        });
     })
 }
 
-let getAllStat = (pathList: Array<string>): Promise<any> => {
-    return Promise.all(pathList.map(path => getStat(path)));
-}
-
-let processItemList = (): Promise<any> | Array<string> => {
-    // if queue, process next item recursive
-    while (dirQueue.length > 0) return readDir(dirQueue.shift());
-
-    return fileQueue;
-}
-
-let StartIt = (inputDir): Promise<any> => {
-    return readDir(inputDir);
-}
-
-let readDir = (inputDir): Promise<any> => {
-    return getPathList(inputDir)
-        .then(getAllStat)
-        .then(processItemList)
-}
-
-let setUpModules = (fileList): object => {
-    let modulesIndex2 = {}
-    fileList.forEach(e => {
-        let name = e.split('\\').pop().replace(/.(j|t)s/, '');
-        modulesIndex2[name] = utils.requireMyTsFile(e);
-    })
-    return modulesIndex2
-}
-
-let GlobalModulesIndexer = (context: string, dirName: string): Promise<object> => {
+let GlobalModulesIndexer = (context: string, dirName: string): object => {
     let absolutePath = path.join(context, dirName);
 
-    return StartIt(absolutePath).then(setUpModules)
+    startRecursiveCheck(absolutePath);
+
+    return modulesIndex;
 }
 
 export default GlobalModulesIndexer;

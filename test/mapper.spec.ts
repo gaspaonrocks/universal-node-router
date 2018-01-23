@@ -4,7 +4,7 @@
  * Import test suite
  */
 import 'mocha';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as supertest from 'supertest';
 
 let Router = require('../src');
@@ -217,7 +217,7 @@ If it is still not working, post an issue.`);
         .delete('/test/beta/param1')
         .expect(500)
         .end((err, res) => {
-          if (err) done(err)
+          if (err) done(err);
           expect(err).to.be.null
           expect(res.status).to.deep.equal(500);
           expect(res.error.status).to.deep.equal(500);

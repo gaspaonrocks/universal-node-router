@@ -18,7 +18,7 @@ exports.default = {
         }
         return config;
     },
-    requireMyTsFile: (path) => {
-        return path.match(/.ts$/) ? require(path).default : require(path);
+    requireMyTsFile: (fileName, filePath) => {
+        return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
     }
 };

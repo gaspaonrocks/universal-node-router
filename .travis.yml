@@ -1,6 +1,9 @@
-dist: precise
-sudo: required
 language: node_js
+services: mongodb  
+cache:  
+  directories:
+    - "node_modules"
+  yarn: true
 node_js:
   - stable
 before_script:

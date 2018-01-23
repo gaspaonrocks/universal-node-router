@@ -1,2 +1,2 @@
-declare let GlobalModulesIndexer: (context: string, dirName: string) => Promise<object>;
+declare let GlobalModulesIndexer: (context: string, dirName: string) => object;
 export default GlobalModulesIndexer;

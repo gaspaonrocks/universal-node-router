@@ -19,7 +19,7 @@ export default {
 
         return config;
     },
-    requireMyTsFile: (path: string): Function => {
-        return path.match(/.ts$/) ? require(path).default : require(path);
+    requireMyTsFile: (fileName: string, filePath: string): Function => {
+        return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
     }
 };
