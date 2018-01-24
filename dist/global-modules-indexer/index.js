@@ -11,7 +11,7 @@ let startRecursiveCheck = (filePath) => {
             throw new Error(err.message);
         else
             content.forEach(e => {
-                let name = e.replace(/.(j|t)s/, '');
+                let name = e.replace(/.(j|t)s$/, '');
                 modulesIndex[name] = {};
                 fs.stat(filePath + '/' + e, (err, result) => {
                     result.isFile() ? modulesIndex[name] = utils.requireMyTsFile(e, filePath) : nextChecks(name, filePath + '/' + e);
