@@ -20,15 +20,14 @@ let routerCustom = new Router(__dirname, customConfig);
 let router = new Router(__dirname);
 
 const createStubServer = require("./stub/stubServer");
-let server, request;
+
+let server = createStubServer(routerCustom.mapper("./mocks"));
+let request = supertest(server);
 
 /**
  * Start testing
  */
 describe("RouteMapper with custom config", () => {
-  server = createStubServer(routerCustom.mapper("./mocks"));
-  request = supertest(server);
-
   it("should be a function setting up routing", () => {
     expect(typeof Router).to.equal("function");
   });
@@ -68,20 +67,24 @@ describe("RouteMapper with custom config", () => {
   //#region 200
   describe("mapping to controller with methods correctly named", () => {
     it("should return a collection", done => {
-      request.get("/test/index").expect(200, (err, res) => {
-        if (err) done(err);
-        expect(err).to.be.null;
-        expect(res.status).to.deep.equal(200);
-        done();
+      request
+        .get("/test/index")
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(200);
+          done();
       });
     });
 
     it("should return a single document", done => {
-      request.get("/test/index/param1").expect(200, (err, res) => {
-        if (err) done(err);
-        expect(err).to.be.null;
-        expect(res.status).to.deep.equal(200);
-        done();
+      request
+        .get("/test/index/param1")
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(200);
+          done();
       });
     });
 
@@ -240,24 +243,27 @@ If it is still not working, post an issue.`);
     });
   });
   //#endregion
+});
+server.close();
 
-  server.close();
+server = createStubServer(router.mapper("./mocks"));
+request = supertest(server);
 
+describe("RouteMapper with base config", () => {
   //#region non-custom
-  describe("using a router with the base config", () => {
-    server = createStubServer(router.mapper("./mocks"));
-    request = supertest(server);
-
-    it("should still return a collection", done => {
-      request.get("/test/index").expect(200, (err, res) => {
-        if (err) done(err);
-        expect(err).to.be.null;
-        expect(res.status).to.deep.equal(200);
-        done();
+  describe("should still return", () => {
+    it("a collection", done => {
+      request
+        .get("/test/index")
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(200);
+          done();
       });
     });
 
-    it("should still return an error when fetching a collection", done => {
+    it("an error when fetching a collection", done => {
       request
         .get("/test/beta")
         .expect(500)
@@ -274,16 +280,18 @@ If it is still not working, post an issue.`);
         });
     });
 
-    it("should still return a single document", done => {
-      request.get("/test/index/param1").expect(200, (err, res) => {
-        if (err) done(err);
-        expect(err).to.be.null;
-        expect(res.status).to.deep.equal(200);
-        done();
+    it("a single document", done => {
+      request
+        .get("/test/index/param1")
+        .expect(200, (err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(200);
+          done();
       });
     });
 
-    it("should still return an error when fetching a single document", done => {
+    it("an error when fetching a single document", done => {
       request
         .get("/test/beta/param1")
         .expect(500)
@@ -301,6 +309,5 @@ If it is still not working, post an issue.`);
     });
   });
   //#endregion
-
-  server.close();
 });
+server.close();
