@@ -75,7 +75,6 @@ If you want to help with anything, unit tests, methods... Submit a pull request 
 You can also post issues if I ever miss something.
 
 ## IN DEVELOPMENT : 
- - [X] A config file to use custom method names
- - [X] Need to test the custom config
+ - [ ] Cannot read the folder resulting from `tsc` because of the .d.ts files.
  - [ ] GlobalModulesIndexer - make sure the correct index.js is imported
  - [ ] A webpack plugin for modern projects to allow dynamic imports
