@@ -25,6 +25,8 @@ export default function (context: string, config: any, dirName: string): Router 
                         if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('getAll')], 'controller')) res.status(500).send(handler.result);
                         else return modulesIndex[ctrl][config.getMethod('getAll')](req, res, next);
                     });
+            } else {
+                handler.isNullOrUndefined(router, 'GET');
             }
         },
         'POST': (router: Router, path: string): void => {
@@ -35,6 +37,8 @@ export default function (context: string, config: any, dirName: string): Router 
                     if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('post')], 'controller')) res.status(500).send(handler.result);
                     else return modulesIndex[ctrl][config.getMethod('post')](req, res, next);
                 })
+            } else  {
+                handler.isNullOrUndefined(router, 'POST');
             }
         },
         'PUT': (router: Router, path: string): void => {
@@ -46,6 +50,8 @@ export default function (context: string, config: any, dirName: string): Router 
                     if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller')) res.status(500).send(handler.result);
                     else return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 })
+            } else  {
+                handler.isNullOrUndefined(router, 'PUT');
             }
         },
         'PATCH': (router: Router, path: string): void => {
@@ -57,6 +63,8 @@ export default function (context: string, config: any, dirName: string): Router 
                     if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('update')], 'controller')) res.status(500).send(handler.result);
                     else return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 })
+            } else  {
+                handler.isNullOrUndefined(router, 'PATCH');
             }
         },
         'DELETE': (router: Router, path: string): void => {
@@ -68,6 +76,8 @@ export default function (context: string, config: any, dirName: string): Router 
                     if (handler.errorChecker(modulesIndex[ctrl][config.getMethod('delete')], 'controller')) res.status(500).send(handler.result);
                     else return modulesIndex[ctrl][config.getMethod('delete')](req, res, next);
                 })
+            } else  {
+                handler.isNullOrUndefined(router, 'DELETE');
             }
         }
     }

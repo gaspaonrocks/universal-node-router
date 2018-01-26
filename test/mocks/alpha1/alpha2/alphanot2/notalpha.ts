@@ -1,1 +1,1 @@
-export default { message: "je NE suis PAS alpha" };
+export default undefined;

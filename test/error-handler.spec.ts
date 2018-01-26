@@ -2,6 +2,7 @@
 
 import {expect} from 'chai';
 import 'mocha';
+import {Router} from 'express';
 
 import ErrorHandler from '../src/utils/error-handler';
 let TestEH = new ErrorHandler();
@@ -58,5 +59,18 @@ describe('ErrorHandler module', () => {
     expect(TestEH.result).to.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
 Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
 If it is still not working, post an issue.`);
+  });
+
+  it('ErrorHandler.isNullOrUndefined should return a string telling the ctrl Index is either null or undefined', ()=>{
+    let methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
+    for (let method of methods) {
+      let router:Router = Router();
+      let useCase = TestEH.isNullOrUndefined(router, method);
+      
+      expect(TestEH.result).to.equal(`Couldn't ${method} the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
+    }
+
   });
 });

@@ -300,10 +300,79 @@ If it is still not working, post an issue.`);
           expect(err).to.be.null;
           expect(res.status).to.deep.equal(500);
           expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep
-            .equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
+          expect(res.error.text).to.deep.equal(`Trying to use a method not implemented in the controller like advised in the docs of the router.
 Go have a look at https://github.com/gaspaonrocks/universal-node-router/blob/master/readme.md for more info.
 If it is still not working, post an issue.`);
+          done();
+        });
+    });
+
+    it("an error when controller is undefined: GET", done => {
+      request.get("/test/alpha1")
+        .expect(500)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(500);
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Couldn't GET the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
+          done();
+        });
+    });
+
+    it("an error when controller is undefined: POST", done => {
+      request.post("/test/alpha1")
+        .expect(500)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(500);
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Couldn't POST the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
+          done();
+        });
+    });
+
+    it("an error when controller is undefined: PUT", done => {
+      request.put("/test/alpha1")
+        .expect(500)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(500);
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Couldn't PUT the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
+          done();
+        });
+    });
+
+    it("an error when controller is undefined: PATCH", done => {
+      request.patch("/test/alpha1")
+        .expect(500)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(500);
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Couldn't PATCH the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
+          done();
+        });
+    });
+
+    it("an error when controller is undefined: DELETE", done => {
+      request.delete("/test/alpha1")
+        .expect(500)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(err).to.be.null;
+          expect(res.status).to.deep.equal(500);
+          expect(res.error.status).to.deep.equal(500);
+          expect(res.error.text).to.deep.equal(`Couldn't DELETE the targeted controller.
+It is either null or undefined, or there must be an error in the URL or in the name of the file`);
           done();
         });
     });

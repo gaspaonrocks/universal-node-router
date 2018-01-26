@@ -28,6 +28,9 @@ function default_1(context, config, dirName) {
                             return modulesIndex[ctrl][config.getMethod('getAll')](req, res, next);
                     });
             }
+            else {
+                handler.isNullOrUndefined(router, 'GET');
+            }
         },
         'POST': (router, path) => {
             let ctrl = path.replace('/', '');
@@ -38,6 +41,9 @@ function default_1(context, config, dirName) {
                     else
                         return modulesIndex[ctrl][config.getMethod('post')](req, res, next);
                 });
+            }
+            else {
+                handler.isNullOrUndefined(router, 'POST');
             }
         },
         'PUT': (router, path) => {
@@ -51,6 +57,9 @@ function default_1(context, config, dirName) {
                         return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 });
             }
+            else {
+                handler.isNullOrUndefined(router, 'PUT');
+            }
         },
         'PATCH': (router, path) => {
             let options = utils.reqParamsOptions(path);
@@ -63,6 +72,9 @@ function default_1(context, config, dirName) {
                         return modulesIndex[ctrl][config.getMethod('update')](req, res, next);
                 });
             }
+            else {
+                handler.isNullOrUndefined(router, 'PATCH');
+            }
         },
         'DELETE': (router, path) => {
             let options = utils.reqParamsOptions(path);
@@ -74,6 +86,9 @@ function default_1(context, config, dirName) {
                     else
                         return modulesIndex[ctrl][config.getMethod('delete')](req, res, next);
                 });
+            }
+            else {
+                handler.isNullOrUndefined(router, 'DELETE');
             }
         }
     };
