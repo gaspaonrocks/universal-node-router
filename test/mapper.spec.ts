@@ -68,23 +68,23 @@ describe("RouteMapper with custom config", () => {
   describe("mapping to controller with methods correctly named", () => {
     it("should return a collection", done => {
       request
-        .get("/test/index")
-        .expect(200, (err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(200);
-          done();
+      .get("/test/index")
+      .expect(200, (err, res) => {
+        if (err) done(err);
+        expect(err).to.be.null;
+        expect(res.status).to.deep.equal(200);
+        done();
       });
     });
 
     it("should return a single document", done => {
       request
-        .get("/test/index/param1")
-        .expect(200, (err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(200);
-          done();
+      .get("/test/index/param1")
+      .expect(200, (err, res) => {
+        if (err) done(err);
+        expect(err).to.be.null;
+        expect(res.status).to.deep.equal(200);
+        done();
       });
     });
 
@@ -254,12 +254,12 @@ describe("RouteMapper with base config", () => {
   describe("should still return", () => {
     it("a collection", done => {
       request
-        .get("/test/index")
-        .expect(200, (err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(200);
-          done();
+      .get("/test/index")
+      .expect(200, (err, res) => {
+        if (err) done(err);
+        expect(err).to.be.null;
+        expect(res.status).to.deep.equal(200);
+        done();
       });
     });
 
@@ -282,12 +282,12 @@ If it is still not working, post an issue.`);
 
     it("a single document", done => {
       request
-        .get("/test/index/param1")
-        .expect(200, (err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(200);
-          done();
+      .get("/test/index/param1")
+      .expect(200, (err, res) => {
+        if (err) done(err);
+        expect(err).to.be.null;
+        expect(res.status).to.deep.equal(200);
+        done();
       });
     });
 
@@ -306,75 +306,24 @@ If it is still not working, post an issue.`);
           done();
         });
     });
+  });
 
-    it("an error when controller is undefined: GET", done => {
-      request.get("/test/alpha1")
-        .expect(500)
+  describe("when controller is undefined", () => {
+    it("should return an error", done => {
+      let methods = ["GET", "POST", "PUT", "PATCH", "DELETE"];
+
+      methods.forEach(method => {
+        request[method.toLowerCase()]("/test/alpha1")
         .end((err, res) => {
           if (err) done(err);
           expect(err).to.be.null;
           expect(res.status).to.deep.equal(500);
           expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep.equal(`Couldn't GET the targeted controller.
-It is either null or undefined, or there must be an error in the URL or in the name of the file`);
-          done();
+          expect(res.error.text).to.deep.equal(`Couldn't ${method} the targeted controller.
+            It is either null or undefined, or there must be an error in the URL or in the name of the file`);
         });
-    });
-
-    it("an error when controller is undefined: POST", done => {
-      request.post("/test/alpha1")
-        .expect(500)
-        .end((err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(500);
-          expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep.equal(`Couldn't POST the targeted controller.
-It is either null or undefined, or there must be an error in the URL or in the name of the file`);
-          done();
-        });
-    });
-
-    it("an error when controller is undefined: PUT", done => {
-      request.put("/test/alpha1")
-        .expect(500)
-        .end((err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(500);
-          expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep.equal(`Couldn't PUT the targeted controller.
-It is either null or undefined, or there must be an error in the URL or in the name of the file`);
-          done();
-        });
-    });
-
-    it("an error when controller is undefined: PATCH", done => {
-      request.patch("/test/alpha1")
-        .expect(500)
-        .end((err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(500);
-          expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep.equal(`Couldn't PATCH the targeted controller.
-It is either null or undefined, or there must be an error in the URL or in the name of the file`);
-          done();
-        });
-    });
-
-    it("an error when controller is undefined: DELETE", done => {
-      request.delete("/test/alpha1")
-        .expect(500)
-        .end((err, res) => {
-          if (err) done(err);
-          expect(err).to.be.null;
-          expect(res.status).to.deep.equal(500);
-          expect(res.error.status).to.deep.equal(500);
-          expect(res.error.text).to.deep.equal(`Couldn't DELETE the targeted controller.
-It is either null or undefined, or there must be an error in the URL or in the name of the file`);
-          done();
-        });
+      });
+      done();
     });
   });
   //#endregion
