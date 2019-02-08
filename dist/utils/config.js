@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Config {
-    constructor(config) {
+    constructor(config = {}) {
         this.methodNames = {
             getAll: "list",
             getOne: "find",
@@ -9,16 +9,11 @@ class Config {
             update: "update",
             delete: "delete"
         };
-        this.setMethods(config);
-    }
-    getMethod(key) {
-        return this.methodNames[key];
-    }
-    setMethods(config) {
-        for (let key in this.methodNames) {
-            if (config[key] != null)
-                this.methodNames[key] = config[key];
-        }
+        this.getMethod = (key) => this.methodNames[key];
+        this.setMethods = (config) => Object
+            .keys(this.methodNames)
+            .reduce((obj, key) => config[key] != null ? Object.assign({}, obj, { [key]: config[key] }) : Object.assign({}, obj, { [key]: this.methodNames[key] }), {});
+        this.methodNames = this.setMethods(config);
     }
 }
 exports.default = Config;

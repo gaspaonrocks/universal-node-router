@@ -1,9 +1,18 @@
 'use strict';
 
-import {expect} from 'chai';
+import { expect } from 'chai';
 import 'mocha';
 
 import Utils from '../src/utils/utils';
+import Config from '../src/utils/config';
+
+const myConfigModule = new Config({
+  getAll: "booya",
+  getOne: "booyi",
+  post: "sup",
+  update: "foo",
+  delete: "bar"
+});
 
 describe('Utils module', () => {
   it('Utils should be an object', () => {
@@ -57,3 +66,9 @@ describe('Utils module', () => {
     };
   });
 });
+
+describe('Config module', () => {
+  it('should be something', () => {
+    console.log(myConfigModule);
+  })
+})

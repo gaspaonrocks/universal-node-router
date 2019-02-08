@@ -6,17 +6,16 @@ export default class Config {
     update: "update",
     delete: "delete"
   }
-  constructor(config: object) {
-    this.setMethods(config);
+
+  constructor(config: object = {}) {
+    this.methodNames = this.setMethods(config);
   }
 
-  getMethod(key: string) {
-    return this.methodNames[key];
-  }
+  getMethod = (key: string): string => this.methodNames[key];
 
-  private setMethods(config: object) {
-    for (let key in this.methodNames) {
-      if (config[key] != null) this.methodNames[key] = config[key];
-    }
-  }
+  private setMethods = (config: object): object => Object
+    .keys(this.methodNames)
+    .reduce((obj, key) => config[key] != null ?
+      { ...obj, [key]: config[key] } :
+      { ...obj, [key]: this.methodNames[key] }, {});
 }
