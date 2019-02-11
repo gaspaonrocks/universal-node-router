@@ -4,11 +4,10 @@ import Utils from '../utils/utils';
 import ErrorHandler from '../utils/error-handler';
 
 export default function (context: string, config: any, dirName: string): Router {
-    let router: Router = Router();
-    let handler: ErrorHandler = new ErrorHandler();
-    let utils = Utils;
-
-    let modulesIndex: object = GlobalModulesIndexer(context, dirName);
+    const router: Router = Router();
+    const handler: ErrorHandler = new ErrorHandler();
+    const utils = Utils;
+    const modulesIndex: object = GlobalModulesIndexer(context, dirName);
 
     const RoutesMapping = {
         'GET': (router: Router, path: string): void => {
