@@ -1,24 +1,16 @@
+const reqParamsOptionsReducer = (accumulator, currentValue, i): any => i === 0 ?
+    { ...accumulator, ctrl: currentValue, url: accumulator.url + `/${currentValue}` } :
+    { ...accumulator, [`param${i}`]: currentValue, url: accumulator.url + `/:param${i}` }
+
 export default {
     hasReqParams: (path: string): boolean => {
         return path.split('/').filter(e => e.length > 0).length > 1;
     },
-    reqParamsOptions: (path: string): any => {
-        let config = {
-            ctrl: '',
-            url: '/'
-        };
-
-        let array = path.split('/').filter(e => e.length > 0);
-        config.ctrl = array[0];
-        config.url += array[0];
-
-        for (let i = 1, len = array.length; i < len; i++) {
-            config[`param${i}`] = array[i];
-            config.url += `/:param${i}`;
-        }
-
-        return config;
-    },
+    reqParamsOptions: (path: string): any => path
+        .split('/')
+        .filter(e => e.length > 0)
+        .reduce(reqParamsOptionsReducer, { ctrl: '', url: '' })
+    ,
     requireMyTsFile: (fileName: string, filePath: string): Function => {
         return fileName.match(/.ts$/) ? require(filePath + '/' + fileName).default : require(filePath + '/' + fileName);
     }
