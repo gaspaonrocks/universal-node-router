@@ -68,7 +68,7 @@ describe('Utils module', () => {
 });
 
 describe('Config module', () => {
-  it('should be something', () => {
+  xit('pending', () => {
     console.log(myConfigModule);
   })
 })
